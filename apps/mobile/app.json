@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "TTG Events",
+    "slug": "ttg-events",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "ttgevents",
+    "userInterfaceStyle": "dark",
+    "platforms": ["ios", "android", "web"],
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ttgevents.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#14161c"
+      },
+      "package": "com.ttgevents.app"
+    },
+    "plugins": ["expo-router"]
+  }
+}

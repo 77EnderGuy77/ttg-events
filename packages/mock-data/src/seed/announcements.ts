@@ -1,0 +1,48 @@
+import type { Announcement } from '@ttg/types'
+
+export const ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: 'ann-001',
+    eventId: 'evt-003',
+    storeId: 'str-001',
+    title: 'Tournament Reminder — Launch Event Sealed',
+    body: 'This is a reminder that our Aetherdrift Launch Sealed is in 5 days! Arrive 10–15 min early to collect your pack. Payment at the door: 300 CZK.',
+    type: 'reminder',
+    sentAt: '2026-06-23T10:00:00Z',
+    sentCount: 18,
+    openCount: 14,
+  },
+  {
+    id: 'ann-002',
+    eventId: 'evt-003',
+    storeId: 'str-001',
+    title: 'Schedule Change — Doors open at 9:30',
+    body: 'We are opening doors 30 minutes earlier on June 28. Please arrive at 9:30 so we can start on time.',
+    type: 'schedule',
+    sentAt: '2026-06-25T16:00:00Z',
+    sentCount: 18,
+    openCount: 11,
+  },
+  {
+    id: 'ann-003',
+    eventId: 'evt-005',
+    storeId: 'str-002',
+    title: 'Waitlist Update — Capacity Increased',
+    body: 'Great news! We have added 4 more spots to the Prerelease Sealed. Waitlisted players will be contacted in order. Check your email.',
+    type: 'capacity',
+    sentAt: '2026-06-12T11:00:00Z',
+    sentCount: 8,
+    openCount: 8,
+  },
+  {
+    id: 'ann-004',
+    eventId: 'evt-001',
+    storeId: 'str-001',
+    title: 'Event Wrap-Up — Thank You!',
+    body: 'Thanks everyone for a great Aetherdrift Prerelease! Results and photos are posted on our Facebook. See you at the Launch Event on June 28!',
+    type: 'general',
+    sentAt: '2026-06-14T20:00:00Z',
+    sentCount: 28,
+    openCount: 22,
+  },
+]

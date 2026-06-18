@@ -1,0 +1,1526 @@
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  :root {
+    --bg: #14161c;
+    --bg1: #181a21;
+    --bg2: #1d2027;
+    --bg3: #252832;
+    --bg4: #2b2f3a;
+    --border: #2f333d;
+    --borders: #252832;
+    --text: #e4e6eb;
+    --text2: #c4c8d2;
+    --text3: #8b919f;
+    --text4: #5b6170;
+    --text5: #3a3e48;
+    --gold: #5C8DEF;
+    --goldS: #5C8DEF1a;
+    --goldF: #5C8DEF0a;
+    --goldB: #5C8DEF38;
+    --goldStr: #5C8DEF70;
+    --purple: #8B7FE8;
+    --purpleL: #B6AEF0;
+    --green: #4CC38A;
+    --red: #E5564E;
+    --orange: #F0A35C;
+    --r: 7px;
+    --rmd: 8px;
+    --rlg: 10px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 600px
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none
+  }
+
+  .hidden {
+    display: none !important
+  }
+
+  .app {
+    min-height: 600px;
+    background: var(--bg)
+  }
+
+  /* === NAV === */
+  .nav {
+    background: rgba(19, 19, 31, 0.92);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 20px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 40
+  }
+
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    cursor: pointer
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2px
+  }
+
+  .nav-link {
+    font-size: 12px;
+    color: var(--text3);
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: color .15s, background .15s;
+    background: none;
+    border: none
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--bg3)
+  }
+
+  .nav-link.active {
+    color: var(--gold)
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px
+  }
+
+  .btn-login {
+    font-size: 12px;
+    color: var(--gold);
+    background: transparent;
+    border: 0.5px solid var(--goldB);
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer
+  }
+
+  .btn-login:hover {
+    background: var(--goldS)
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #0f1117;
+    border-radius: var(--rmd);
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.08)
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text3);
+    border: 0.5px solid var(--border);
+    border-radius: var(--rmd);
+    padding: 8px 16px;
+    font-size: 12px;
+    cursor: pointer
+  }
+
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: var(--text4)
+  }
+
+  /* === BADGE === */
+  .badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: .01em
+  }
+
+  .b-sealed {
+    background: var(--goldS);
+    color: var(--gold);
+    border: 0.5px solid var(--goldB)
+  }
+
+  .b-2hg {
+    background: #8B7FE818;
+    color: var(--purpleL);
+    border: 0.5px solid #8B7FE833
+  }
+
+  .b-prerelease {
+    background: #1C5C4518;
+    color: var(--green);
+    border: 0.5px solid #1C5C4533
+  }
+
+  .b-launch {
+    background: #8A4A1E18;
+    color: var(--orange);
+    border: 0.5px solid #8A4A1E33
+  }
+
+  .b-pro {
+    background: var(--goldS);
+    color: var(--gold);
+    border: 0.5px solid var(--goldB)
+  }
+
+  .b-free {
+    background: #8B7FE812;
+    color: var(--purpleL);
+    border: 0.5px solid #8B7FE833
+  }
+
+  /* === CARD === */
+  .card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--rmd);
+    overflow: hidden
+  }
+
+  /* === EVENT CARD === */
+  .ecard {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--rmd);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color .15s
+  }
+
+  .ecard:hover {
+    border-color: var(--goldStr)
+  }
+
+  /* === SPINNER === */
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--bg4);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    display: inline-block
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg)
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 var(--goldStr)
+    }
+
+    70% {
+      box-shadow: 0 0 0 6px transparent
+    }
+  }
+
+  /* === ADMIN LAYOUT === */
+  .admin-wrap {
+    display: flex;
+    min-height: 600px
+  }
+
+  .sidebar {
+    width: 220px;
+    background: var(--bg2);
+    border-right: 0.5px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0
+  }
+
+  .sidebar-logo {
+    padding: 14px 16px;
+    border-bottom: 0.5px solid var(--border)
+  }
+
+  .sidebar-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px
+  }
+
+  .sidebar-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background: var(--goldS);
+    border: 0.5px solid var(--goldB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 13px
+  }
+
+  .sidebar-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text)
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 6px 0
+  }
+
+  .sn-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    font-size: 12px;
+    color: var(--text3);
+    cursor: pointer;
+    transition: color .12s, background .12s;
+    border-right: 2px solid transparent
+  }
+
+  .sn-item:hover {
+    color: var(--text);
+    background: var(--bg3)
+  }
+
+  .sn-item.active {
+    color: var(--gold);
+    background: var(--goldF);
+    border-right-color: var(--gold)
+  }
+
+  .sn-item.locked {
+    color: var(--text5);
+    cursor: not-allowed
+  }
+
+  .sn-badge {
+    background: var(--red);
+    color: #fff;
+    border-radius: 99px;
+    padding: 0 5px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 15px;
+    min-width: 15px;
+    text-align: center
+  }
+
+  .sidebar-footer {
+    padding: 10px 16px;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px
+  }
+
+  .avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text3);
+    flex-shrink: 0
+  }
+
+  .admin-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0
+  }
+
+  .admin-topbar {
+    height: 48px;
+    background: var(--bg2);
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px
+  }
+
+  .admin-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 540px
+  }
+
+  /* === TABLES === */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse
+  }
+
+  .tbl th {
+    font-size: 10px;
+    color: var(--text4);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 9px 14px;
+    text-align: left;
+    font-weight: 400;
+    border-bottom: 0.5px solid var(--border)
+  }
+
+  .tbl td {
+    padding: 9px 14px;
+    border-bottom: 0.5px solid var(--borders);
+    font-size: 12px;
+    color: var(--text2)
+  }
+
+  .tbl tr:last-child td {
+    border-bottom: none
+  }
+
+  .tbl tr:hover td {
+    background: var(--bg3)
+  }
+
+  /* === STAT CARD === */
+  .stat-card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--rmd);
+    padding: 12px 14px
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 5px
+  }
+
+  .stat-val {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -.01em
+  }
+
+  .stat-val.gold {
+    color: var(--gold)
+  }
+
+  .stat-sub {
+    font-size: 10px;
+    color: var(--text4);
+    margin-top: 3px
+  }
+
+  /* === FORMS === */
+  .field {
+    margin-bottom: 14px
+  }
+
+  .field-label {
+    font-size: 11px;
+    color: var(--text3);
+    margin-bottom: 5px;
+    display: block
+  }
+
+  .input {
+    width: 100%;
+    background: var(--bg1);
+    border: 0.5px solid var(--border);
+    border-radius: var(--r);
+    padding: 8px 10px;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s
+  }
+
+  .input:focus {
+    border-color: var(--gold)
+  }
+
+  select.input {
+    cursor: pointer
+  }
+
+  /* === MISC === */
+  .page-enter {
+    animation: fadeIn .2s ease
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px)
+    }
+
+    to {
+      opacity: 1;
+      transform: none
+    }
+  }
+
+  .text3 {
+    color: var(--text3)
+  }
+
+  .text4 {
+    color: var(--text4)
+  }
+
+  .gold {
+    color: var(--gold)
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 8px 16px
+  }
+</style>
+
+<div class="app" id="root">
+
+  <div id="public-shell">
+    <nav class="nav">
+      <button class="nav-logo" onclick="showPage('landing')">
+        <span style="font-size:14px">♦</span> MTG Prerelease
+      </button>
+      <div class="nav-links">
+        <button class="nav-link" onclick="showPage('landing')" id="nl-landing">Events</button>
+        <button class="nav-link" onclick="showPage('stores')" id="nl-stores">Stores</button>
+        <button class="nav-link" onclick="showPage('pricing')" id="nl-pricing">Pricing</button>
+      </div>
+      <div class="nav-right">
+        <button class="btn-login" onclick="showPage('admin-login')">Admin</button>
+        <button class="btn-primary" onclick="showPage('register')">Sign up</button>
+      </div>
+    </nav>
+
+    <!-- LANDING -->
+    <div id="page-landing" class="page-enter" style="display:none">
+      <section style="padding:64px 24px 48px;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden">
+        <div
+          style="position:absolute;inset:0;background:radial-gradient(ellipse 700px 350px at 50% 100%,#5C8DEF08 0%,transparent 70%);pointer-events:none">
+        </div>
+        <div style="max-width:880px;margin:0 auto;text-align:center;position:relative">
+          <div
+            style="font-size:10px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;display:inline-flex;align-items:center;gap:6px;padding:3px 10px;background:var(--goldS);border:0.5px solid var(--goldB);border-radius:100px">
+            <span
+              style="width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite"></span>
+            Upcoming prereleases
+          </div>
+          <h1
+            style="font-size:36px;font-weight:600;color:var(--text);letter-spacing:-.02em;margin-bottom:10px;line-height:1.15">
+            Find your local<br><span style="color:var(--gold)">MTG Prerelease</span>
+          </h1>
+          <p style="font-size:14px;color:var(--text3);max-width:480px;margin:0 auto 28px">Register for Magic: The
+            Gathering prerelease events at stores near you. Build your sealed deck and battle on day one.</p>
+          <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap">
+            <select class="input" style="width:auto;min-width:180px" onchange="filterEvents(this.value)">
+              <option value="all">All stores</option>
+              <option value="dragons">Dragon's Lair — Praha</option>
+              <option value="mythic">Mythic Games — Brno</option>
+              <option value="shield">Shield & Sword — Bratislava</option>
+            </select>
+            <div style="display:flex;gap:4px">
+              <button class="btn-primary format-btn active" data-fmt="All" onclick="filterFmt(this,'All')">All</button>
+              <button class="btn-ghost format-btn" data-fmt="Sealed" onclick="filterFmt(this,'Sealed')"
+                style="padding:8px 12px">Sealed</button>
+              <button class="btn-ghost format-btn" data-fmt="2HG" onclick="filterFmt(this,'2HG')"
+                style="padding:8px 12px">2HG</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div style="max-width:920px;margin:0 auto;padding:24px">
+        <div id="event-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+          <!-- events injected by JS -->
+        </div>
+        <div id="no-events" class="hidden" style="text-align:center;padding:48px;color:var(--text4)">No upcoming events
+          match your filter.</div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="max-width:680px;margin:0 auto;padding:0 24px 48px">
+        <div style="font-size:11px;color:var(--text4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px">
+          FAQ</div>
+        <div id="faq-list"></div>
+      </div>
+
+      <footer style="border-top:0.5px solid var(--border);padding:24px;background:var(--bg1)">
+        <div
+          style="max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div style="font-size:13px;color:var(--gold);display:flex;align-items:center;gap:6px;font-weight:500">♦ MTG
+            Prerelease</div>
+          <div style="display:flex;gap:18px">
+            <a href="#" style="font-size:11px;color:var(--text3)">About</a>
+            <a href="#" style="font-size:11px;color:var(--text3)">Stores</a>
+            <a href="#" style="font-size:11px;color:var(--text3)">Privacy</a>
+            <a href="#" style="font-size:11px;color:var(--text3)">Contact</a>
+          </div>
+          <div style="font-size:10px;color:var(--text4)">Independent · Not affiliated with Wizards of the Coast</div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- STORES -->
+    <div id="page-stores" style="display:none" class="page-enter">
+      <div style="max-width:860px;margin:0 auto;padding:28px 24px">
+        <h1 style="font-size:22px;font-weight:600;color:var(--text);margin-bottom:4px">Stores</h1>
+        <p style="color:var(--text3);margin-bottom:20px">Registered game stores hosting MTG Prerelease events.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+          <div class="card" style="padding:14px 16px;cursor:pointer" onclick="showPage('store-detail')">
+            <div style="font-size:14px;font-weight:500;color:var(--gold);margin-bottom:4px">Dragon's Lair</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:2px">Praha, CZ</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:10px">Náměstí Míru 12, Praha 2</div>
+            <div style="display:flex;gap:6px"><span class="badge b-pro">Pro</span><span class="badge b-prerelease">3
+                events</span></div>
+          </div>
+          <div class="card" style="padding:14px 16px;cursor:pointer">
+            <div style="font-size:14px;font-weight:500;color:var(--gold);margin-bottom:4px">Mythic Games</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:2px">Brno, CZ</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:10px">Česká 14, Brno-střed</div>
+            <div style="display:flex;gap:6px"><span class="badge b-pro">Pro</span><span class="badge b-prerelease">2
+                events</span></div>
+          </div>
+          <div class="card" style="padding:14px 16px;cursor:pointer">
+            <div style="font-size:14px;font-weight:500;color:var(--gold);margin-bottom:4px">Shield &amp; Sword</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:2px">Bratislava, SK</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:10px">Obchodná 28, Bratislava I</div>
+            <div style="display:flex;gap:6px"><span class="badge b-free">Free</span><span class="badge b-prerelease">1
+                event</span></div>
+          </div>
+          <div class="card" style="padding:14px 16px;cursor:pointer">
+            <div style="font-size:14px;font-weight:500;color:var(--gold);margin-bottom:4px">Cardboard Kingdom</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:2px">Ostrava, CZ</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:10px">Stodolní 5, Moravská Ostrava</div>
+            <div style="display:flex;gap:6px"><span class="badge b-free">Free</span><span class="badge b-prerelease">1
+                event</span></div>
+          </div>
+        </div>
+
+        <div
+          style="margin-top:28px;padding:16px;border:0.5px dashed var(--border);border-radius:var(--rmd);text-align:center">
+          <div style="font-size:13px;color:var(--text2);margin-bottom:8px">Own a game store? Get listed on MTG
+            Prerelease.</div>
+          <button class="btn-primary" onclick="showPage('request-store')">Request store listing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORE DETAIL -->
+    <div id="page-store-detail" style="display:none" class="page-enter">
+      <div style="max-width:860px;margin:0 auto;padding:28px 24px">
+        <button class="btn-ghost" style="margin-bottom:16px;font-size:11px;padding:5px 10px"
+          onclick="showPage('stores')">← Back to stores</button>
+        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <h1 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Dragon's Lair</h1>
+            <div style="font-size:13px;color:var(--text3);margin-bottom:6px">Náměstí Míru 12, Praha 2 · Praha, CZ</div>
+            <span class="badge b-pro">Pro plan</span>
+          </div>
+          <button class="btn-ghost" style="font-size:11px">Website ↗</button>
+        </div>
+        <div
+          style="font-size:12px;color:var(--text3);margin-bottom:16px;font-weight:500;text-transform:uppercase;letter-spacing:.08em">
+          Upcoming events</div>
+        <div style="display:grid;gap:10px">
+          <div class="ecard" onclick="showPage('event-detail')">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <div>
+                <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px">Aetherdrift Prerelease —
+                  Sealed</div>
+                <div style="font-size:11px;color:var(--text3)">Dragon's Lair · Praha</div>
+              </div>
+              <span class="badge b-sealed">Sealed</span>
+            </div>
+            <div style="display:flex;gap:14px;font-size:11px;color:var(--text3);margin-bottom:10px">
+              <span>📅 14 Jun 2026, 10:00</span>
+              <span>👥 18 / 28</span>
+            </div>
+            <button class="btn-primary" style="font-size:11px;padding:6px 14px">Register</button>
+          </div>
+          <div class="ecard" onclick="showPage('event-detail')">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <div>
+                <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px">Aetherdrift Prerelease —
+                  2HG</div>
+                <div style="font-size:11px;color:var(--text3)">Dragon's Lair · Praha</div>
+              </div>
+              <span class="badge b-2hg">2HG</span>
+            </div>
+            <div style="display:flex;gap:14px;font-size:11px;color:var(--text3);margin-bottom:10px">
+              <span>📅 15 Jun 2026, 14:00</span>
+              <span>👥 6 / 16</span>
+            </div>
+            <button class="btn-primary" style="font-size:11px;padding:6px 14px">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT DETAIL + REGISTER -->
+    <div id="page-event-detail" style="display:none" class="page-enter">
+      <div style="max-width:720px;margin:0 auto;padding:28px 24px">
+        <button class="btn-ghost" style="margin-bottom:16px;font-size:11px;padding:5px 10px"
+          onclick="showPage('landing')">← Back to events</button>
+        <div
+          style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap">
+          <div>
+            <div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge b-sealed">Sealed</span><span
+                class="badge b-prerelease">Prerelease</span></div>
+            <h1 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px">Aetherdrift Prerelease —
+              Sealed</h1>
+            <div style="font-size:12px;color:var(--text3)">Dragon's Lair · Náměstí Míru 12, Praha 2</div>
+          </div>
+        </div>
+        <div class="card" style="padding:0;margin-bottom:16px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);border-bottom:0.5px solid var(--border)">
+            <div style="padding:12px 14px;border-right:0.5px solid var(--border)">
+              <div
+                style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">
+                Date</div>
+              <div style="font-size:13px;color:var(--text)">14 Jun 2026</div>
+              <div style="font-size:11px;color:var(--text3)">10:00 AM</div>
+            </div>
+            <div style="padding:12px 14px;border-right:0.5px solid var(--border)">
+              <div
+                style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">
+                Spots left</div>
+              <div style="font-size:13px;color:var(--gold);font-weight:500">10</div>
+              <div style="font-size:11px;color:var(--text3)">18 / 28 registered</div>
+            </div>
+            <div style="padding:12px 14px">
+              <div
+                style="font-size:10px;color:var(--text4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">
+                Payment</div>
+              <div style="font-size:13px;color:var(--text)">At store</div>
+              <div style="font-size:11px;color:var(--text3)">No deposit</div>
+            </div>
+          </div>
+          <div style="padding:12px 14px">
+            <div style="font-size:11px;color:var(--text3)">📢 Bring your Companion app name! Pairings will be posted at
+              the store. Entry fee: 280 CZK — paid at the door on event day.</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px">Register for this event</div>
+          <div class="field">
+            <label class="field-label">Full name</label>
+            <input class="input" type="text" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label class="field-label">Email</label>
+            <input class="input" type="email" placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label class="field-label">Companion app name <span style="color:var(--text4)">(optional)</span></label>
+            <input class="input" type="text" placeholder="Your in-app display name">
+          </div>
+          <button class="btn-primary" style="width:100%;margin-top:6px" onclick="showPage('confirm')">Reserve my
+            spot</button>
+          <div style="font-size:11px;color:var(--text4);text-align:center;margin-top:8px">No payment now · Cancel up to
+            24h before</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTER CONFIRM -->
+    <div id="page-confirm" style="display:none" class="page-enter">
+      <div style="max-width:480px;margin:60px auto;padding:0 24px;text-align:center">
+        <div
+          style="width:48px;height:48px;border-radius:50%;background:#1C5C4530;border:0.5px solid #1C5C4560;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:20px">
+          ✓</div>
+        <h1 style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:8px">You're registered!</h1>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:20px">We've sent a confirmation to <strong
+            style="color:var(--text)">you@example.com</strong>. Your spot is reserved.</p>
+        <div class="card" style="padding:12px 14px;text-align:left;margin-bottom:16px">
+          <div style="font-size:11px;color:var(--text4);margin-bottom:8px">Aetherdrift Prerelease — Sealed · 14 Jun 2026
+          </div>
+          <div style="font-size:12px;color:var(--text2)">Dragon's Lair · Náměstí Míru 12, Praha 2</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">Arrive 10–15 min early. Pay at the store (280
+            CZK).</div>
+        </div>
+        <button class="btn-ghost" onclick="showPage('landing')">Back to events</button>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div id="page-pricing" style="display:none" class="page-enter">
+      <div style="max-width:820px;margin:0 auto;padding:28px 24px">
+        <div style="text-align:center;margin-bottom:28px">
+          <h1 style="font-size:22px;font-weight:600;color:var(--text);margin-bottom:6px">Plans for every store</h1>
+          <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Start free — upgrade when you need more
+            events, exports, or analytics.</p>
+          <div
+            style="display:inline-flex;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--rmd);padding:3px;gap:3px">
+            <button class="btn-primary" id="bill-m" onclick="setBill('monthly')"
+              style="font-size:11px;padding:5px 14px">Monthly</button>
+            <button class="btn-ghost" id="bill-a" onclick="setBill('annual')"
+              style="font-size:11px;padding:5px 14px;border:none">Annual <span
+                style="color:var(--green)">–20%</span></button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px">
+          <div class="card" style="padding:16px">
+            <div style="font-size:12px;color:var(--text3);margin-bottom:4px">Free</div>
+            <div style="font-size:24px;font-weight:500;color:var(--text);margin-bottom:2px">€0</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:14px">Forever free</div>
+            <div
+              style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;font-size:12px;color:var(--text2)">
+              <div>2 active events</div>
+              <div>40 registrations / event</div>
+              <div style="color:var(--text4)">✗ CSV export</div>
+              <div style="color:var(--text4)">✗ Analytics</div>
+              <div style="color:var(--text4)">✗ Custom branding</div>
+            </div>
+            <button class="btn-ghost" style="width:100%;font-size:12px">Get started</button>
+          </div>
+          <div class="card" style="padding:16px;border-color:var(--goldB)">
+            <div
+              style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px;background:var(--goldS);color:var(--gold);border:0.5px solid var(--goldB);display:inline-block;margin-bottom:8px">
+              Most popular</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:4px">Basic</div>
+            <div style="font-size:24px;font-weight:500;color:var(--text);margin-bottom:2px" id="basic-price">€9</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:14px">per month</div>
+            <div
+              style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;font-size:12px;color:var(--text2)">
+              <div>10 active events</div>
+              <div>Unlimited registrations</div>
+              <div style="color:var(--green)">✓ CSV export</div>
+              <div style="color:var(--green)">✓ Email confirmations</div>
+              <div style="color:var(--text4)">✗ Analytics</div>
+            </div>
+            <button class="btn-primary" style="width:100%;font-size:12px">Start Basic</button>
+          </div>
+          <div class="card" style="padding:16px">
+            <div style="font-size:12px;color:var(--text3);margin-bottom:4px">Pro</div>
+            <div style="font-size:24px;font-weight:500;color:var(--purpleL);margin-bottom:2px" id="pro-price">€24</div>
+            <div style="font-size:11px;color:var(--text4);margin-bottom:14px">per month</div>
+            <div
+              style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;font-size:12px;color:var(--text2)">
+              <div>Unlimited events</div>
+              <div>Unlimited registrations</div>
+              <div style="color:var(--green)">✓ CSV export</div>
+              <div style="color:var(--green)">✓ Analytics dashboard</div>
+              <div style="color:var(--green)">✓ Custom branding</div>
+            </div>
+            <button class="btn-ghost"
+              style="width:100%;font-size:12px;border-color:#8B7FE844;color:var(--purpleL)">Start Pro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REQUEST STORE -->
+    <div id="page-request-store" style="display:none" class="page-enter">
+      <div style="max-width:560px;margin:0 auto;padding:28px 24px">
+        <h1 style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px">Request store listing</h1>
+        <p style="font-size:12px;color:var(--text3);margin-bottom:20px">We'll review your request and reach out within 2
+          business days.</p>
+        <div class="card" style="padding:16px">
+          <div class="field"><label class="field-label">Store name</label><input class="input"
+              placeholder="e.g. Dragon's Lair"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="field"><label class="field-label">City</label><input class="input" placeholder="Praha"></div>
+            <div class="field"><label class="field-label">Country</label><input class="input" placeholder="CZ"></div>
+          </div>
+          <div class="field"><label class="field-label">Address</label><input class="input"
+              placeholder="Street, number"></div>
+          <div class="field"><label class="field-label">Contact name</label><input class="input"
+              placeholder="Your name"></div>
+          <div class="field"><label class="field-label">Contact email</label><input class="input"
+              placeholder="you@store.cz" type="email"></div>
+          <div class="field"><label class="field-label">Website <span
+                style="color:var(--text4)">(optional)</span></label><input class="input" placeholder="https://"></div>
+          <div class="field">
+            <label class="field-label">WPN member?</label>
+            <select class="input">
+              <option>Yes</option>
+              <option>No</option>
+              <option>Unsure</option>
+            </select>
+          </div>
+          <button class="btn-primary" style="width:100%">Submit request</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGIN / REGISTER -->
+    <div id="page-login" style="display:none" class="page-enter">
+      <div style="max-width:380px;margin:48px auto;padding:0 24px">
+        <div class="card" style="padding:20px">
+          <h1 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:16px">Sign in</h1>
+          <div class="field"><label class="field-label">Email</label><input class="input" type="email"
+              placeholder="you@example.com"></div>
+          <div class="field"><label class="field-label">Password</label><input class="input" type="password"
+              placeholder="••••••••"></div>
+          <button class="btn-primary" style="width:100%;margin-top:4px">Sign in</button>
+          <div style="text-align:center;font-size:12px;color:var(--text4);margin-top:12px">No account? <button
+              onclick="showPage('register')"
+              style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px">Sign up</button></div>
+        </div>
+      </div>
+    </div>
+    <div id="page-register" style="display:none" class="page-enter">
+      <div style="max-width:380px;margin:48px auto;padding:0 24px">
+        <div class="card" style="padding:20px">
+          <h1 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:16px">Create account</h1>
+          <div class="field"><label class="field-label">Name</label><input class="input" placeholder="Full name"></div>
+          <div class="field"><label class="field-label">Email</label><input class="input" type="email"
+              placeholder="you@example.com"></div>
+          <div class="field"><label class="field-label">Password</label><input class="input" type="password"
+              placeholder="••••••••"></div>
+          <button class="btn-primary" style="width:100%;margin-top:4px">Create account</button>
+          <div style="text-align:center;font-size:12px;color:var(--text4);margin-top:12px">Already have one? <button
+              onclick="showPage('login')"
+              style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px">Sign in</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN SHELL ============ -->
+  <div id="admin-shell" class="hidden">
+
+    <!-- ADMIN LOGIN -->
+    <div id="page-admin-login" class="page-enter"
+      style="display:none;min-height:600px;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:1rem">
+      <div style="width:100%;max-width:380px">
+        <div style="text-align:center;margin-bottom:24px">
+          <div style="font-size:16px;font-weight:600;color:var(--gold)">MTG Prerelease</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:3px">Admin Panel</div>
+        </div>
+        <div class="card" style="padding:20px">
+          <h1 style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:16px">Sign in</h1>
+          <div class="field"><label class="field-label">Email</label><input class="input" value="admin@dragonslair.cz"
+              type="email"></div>
+          <div class="field"><label class="field-label">Password</label><input class="input" value="••••••••"
+              type="password"></div>
+          <button class="btn-primary" style="width:100%;margin-top:4px" onclick="adminLogin()">Sign in</button>
+          <div style="font-size:11px;color:var(--text4);text-align:center;margin-top:10px">Super Admin: <button
+              onclick="adminLoginSuper()"
+              style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:11px">login as super
+              admin</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN MAIN (sidebar layout) -->
+    <div id="admin-main" style="display:none">
+      <div class="admin-wrap">
+        <aside class="sidebar">
+          <div class="sidebar-logo">
+            <div class="sidebar-logo-row">
+              <div class="sidebar-icon">♦</div>
+              <span class="sidebar-title">MTG Prerelease</span>
+            </div>
+            <div id="sidebar-role-badge"></div>
+          </div>
+          <nav class="sidebar-nav" id="sidebar-nav"></nav>
+          <div class="sidebar-footer">
+            <div class="avatar" id="sidebar-initials">AD</div>
+            <div style="flex:1;min-width:0">
+              <div
+                style="font-size:11px;color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
+                id="sidebar-name">Dragon's Lair</div>
+              <div style="font-size:10px;color:var(--text4)" id="sidebar-role-txt">admin</div>
+            </div>
+            <button title="Log out" onclick="adminLogout()"
+              style="background:none;border:none;color:var(--text4);cursor:pointer;padding:3px;display:flex">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </aside>
+
+        <div class="admin-main">
+          <header class="admin-topbar">
+            <div style="font-size:14px;font-weight:500;color:var(--text)" id="topbar-title">Dashboard</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button class="btn-ghost" style="font-size:11px;padding:5px 10px;display:flex;align-items:center;gap:4px"
+                id="btn-new-event" onclick="adminGoto('events')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                New event
+              </button>
+            </div>
+          </header>
+          <main class="admin-content" id="admin-content"></main>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const EVENTS = [
+    { id: 1, name: 'Aetherdrift Prerelease — Sealed', set: 'Aetherdrift', format: 'sealed', type: 'prerelease', store: 'Dragon\'s Lair', city: 'Praha', date: 'Jun 14, 2026', time: '10:00', reg: 18, cap: 28, storeSlug: 'dragons' },
+    { id: 2, name: 'Aetherdrift Prerelease — 2HG', set: 'Aetherdrift', format: '2hg', type: 'prerelease', store: 'Dragon\'s Lair', city: 'Praha', date: 'Jun 15, 2026', time: '14:00', reg: 6, cap: 16, storeSlug: 'dragons' },
+    { id: 3, name: 'Aetherdrift Prerelease — Sealed', set: 'Aetherdrift', format: 'sealed', type: 'prerelease', store: 'Mythic Games', city: 'Brno', date: 'Jun 14, 2026', time: '11:00', reg: 22, cap: 24, storeSlug: 'mythic' },
+    { id: 4, name: 'Aetherdrift Launch Event', set: 'Aetherdrift', format: 'sealed', type: 'launch', store: 'Mythic Games', city: 'Brno', date: 'Jun 21, 2026', time: '13:00', reg: 9, cap: 24, storeSlug: 'mythic' },
+    { id: 5, name: 'Aetherdrift Prerelease — Sealed', set: 'Aetherdrift', format: 'sealed', type: 'prerelease', store: 'Shield & Sword', city: 'Bratislava', date: 'Jun 14, 2026', time: '10:00', reg: 12, cap: 20, storeSlug: 'shield' },
+    { id: 6, name: 'Aetherdrift Prerelease — 2HG', set: 'Aetherdrift', format: '2hg', type: 'prerelease', store: 'Dragon\'s Lair', city: 'Praha', date: 'Jun 21, 2026', time: '14:00', reg: 4, cap: 16, storeSlug: 'dragons' },
+  ];
+
+  const FAQ = [
+    { q: 'What is a Prerelease?', a: "A Prerelease is held the weekend before a new set launches. You get a sealed Prerelease pack, build a 40-card deck on the spot, and battle other players. It's casual, friendly, and the best way to experience a new set." },
+    { q: 'Do I need an account to register?', a: 'No — register as a guest with just your name and email. An account lets you see all your registrations in one place.' },
+    { q: 'Can I cancel my registration?', a: 'Yes. Your confirmation email includes a cancellation link valid up to 24 hours before the event.' },
+    { q: 'Do I pay online or at the store?', a: 'Payment is collected at the store on the day. Your spot is reserved the moment you register — no deposit required.' },
+  ];
+
+  let fmtFilter = 'All';
+  let storeFilter = 'all';
+  let faqOpen = -1;
+  let isSuperAdmin = false;
+  let currentAdminPage = 'dashboard';
+
+  function badgeClass(ev) {
+    if (ev.format === '2hg') return 'b-2hg';
+    if (ev.type === 'launch') return 'b-launch';
+    return 'b-sealed';
+  }
+  function badgeLabel(ev) {
+    if (ev.format === '2hg') return '2HG';
+    if (ev.type === 'launch') return 'Launch';
+    return 'Sealed';
+  }
+  function pct(ev) { return Math.round((ev.reg / ev.cap) * 100) }
+
+  function renderEvents() {
+    const grid = document.getElementById('event-grid');
+    const none = document.getElementById('no-events');
+    const filtered = EVENTS.filter(ev => {
+      if (storeFilter !== 'all' && ev.storeSlug !== storeFilter) return false;
+      if (fmtFilter === 'Sealed' && ev.format !== 'sealed') return false;
+      if (fmtFilter === '2HG' && ev.format !== '2hg') return false;
+      return true;
+    });
+    if (filtered.length === 0) { grid.innerHTML = ''; none.classList.remove('hidden'); return; }
+    none.classList.add('hidden');
+    grid.innerHTML = filtered.map(ev => `
+    <div class="ecard" onclick="showPage('event-detail')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px">${ev.name}</div>
+          <div style="font-size:11px;color:var(--text4)">${ev.store} · ${ev.city}</div>
+        </div>
+        <span class="badge ${badgeClass(ev)}">${badgeLabel(ev)}</span>
+      </div>
+      <div style="display:flex;gap:12px;font-size:11px;color:var(--text3);margin-bottom:10px">
+        <span>📅 ${ev.date}, ${ev.time}</span>
+        <span style="color:${pct(ev) >= 90 ? 'var(--gold)' : 'var(--text3)'}">👥 ${ev.reg} / ${ev.cap}</span>
+      </div>
+      ${ev.cap - ev.reg <= 3 ? `<div style="font-size:10px;color:var(--orange);margin-bottom:8px">⚠ Only ${ev.cap - ev.reg} spots left</div>` : ''}
+      <button class="btn-primary" style="font-size:11px;padding:5px 12px">Register</button>
+    </div>
+  `).join('');
+  }
+
+  function renderFAQ() {
+    const el = document.getElementById('faq-list');
+    el.innerHTML = FAQ.map((f, i) => `
+    <div style="border-bottom:0.5px solid var(--border)">
+      <button onclick="toggleFaq(${i})" style="width:100%;background:none;border:none;color:var(--text);font-size:13px;padding:12px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left">
+        <span>${f.q}</span>
+        <span style="color:var(--text4);font-size:16px;transition:transform .2s" id="faq-arr-${i}">${faqOpen === i ? '−' : '+'}</span>
+      </button>
+      <div id="faq-body-${i}" style="font-size:12px;color:var(--text3);padding-bottom:${faqOpen === i ? '12px' : '0'};max-height:${faqOpen === i ? '200px' : '0'};overflow:hidden;transition:max-height .2s,padding .2s">${f.a}</div>
+    </div>
+  `).join('');
+  }
+
+  function toggleFaq(i) { faqOpen = faqOpen === i ? -1 : i; renderFAQ(); }
+
+  function filterEvents(val) { storeFilter = val; renderEvents(); }
+  function filterFmt(btn, fmt) {
+    fmtFilter = fmt;
+    document.querySelectorAll('.format-btn').forEach(b => { b.classList.remove('btn-primary'); b.classList.add('btn-ghost'); b.style.border = '0.5px solid var(--border)'; });
+    btn.classList.remove('btn-ghost'); btn.classList.add('btn-primary'); btn.style.border = 'none';
+    renderEvents();
+  }
+
+  let billingMode = 'monthly';
+  function setBill(m) {
+    billingMode = m;
+    document.getElementById('basic-price').textContent = m === 'annual' ? '€86' : '€9';
+    document.getElementById('pro-price').textContent = m === 'annual' ? '€230' : '€24';
+    const bm = document.getElementById('bill-m'), ba = document.getElementById('bill-a');
+    if (m === 'monthly') { bm.className = 'btn-primary'; ba.className = 'btn-ghost'; ba.style.border = 'none'; }
+    else { ba.className = 'btn-primary'; bm.className = 'btn-ghost'; bm.style.border = 'none'; }
+  }
+
+  const PUBLIC_PAGES = ['landing', 'stores', 'store-detail', 'event-detail', 'confirm', 'pricing', 'request-store', 'login', 'register'];
+  const ADMIN_PAGES = ['admin-login', 'admin-main'];
+
+  let currentPage = null;
+
+  function showPage(name) {
+    if (currentPage === name) return;
+    currentPage = name;
+
+    const publicShell = document.getElementById('public-shell');
+    const adminShell = document.getElementById('admin-shell');
+
+    if (name === 'admin-login') {
+      publicShell.classList.add('hidden');
+      adminShell.classList.remove('hidden');
+      document.getElementById('admin-login').style.display = 'flex';
+      document.getElementById('admin-main').style.display = 'none';
+      syncNavLinks('');
+      return;
+    }
+    if (name === 'admin-dashboard' || name === 'admin-events' || name === 'admin-stores' || name === 'admin-store-requests' || name === 'admin-notifications' || name === 'admin-audit-log' || name === 'admin-settings' || name === 'admin-subscriptions') {
+      publicShell.classList.add('hidden');
+      adminShell.classList.remove('hidden');
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-main').style.display = 'block';
+      const section = name.replace('admin-', '');
+      adminGoto(section);
+      return;
+    }
+
+    publicShell.classList.remove('hidden');
+    adminShell.classList.add('hidden');
+    PUBLIC_PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.style.display = 'none';
+    });
+    const target = document.getElementById('page-' + name);
+    if (target) target.style.display = 'block';
+    syncNavLinks(name);
+    window.scrollTo && window.scrollTo(0, 0);
+  }
+
+  function syncNavLinks(page) {
+    ['landing', 'stores', 'pricing'].forEach(p => {
+      const el = document.getElementById('nl-' + p);
+      if (el) el.className = 'nav-link' + (page === p ? ' active' : '');
+    });
+  }
+
+  function adminLogin() {
+    isSuperAdmin = false;
+    setupAdminSidebar();
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'block';
+    adminGoto('dashboard');
+  }
+  function adminLoginSuper() {
+    isSuperAdmin = true;
+    setupAdminSidebar();
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'block';
+    adminGoto('dashboard');
+  }
+  function adminLogout() {
+    isSuperAdmin = false;
+    document.getElementById('admin-main').style.display = 'none';
+    document.getElementById('admin-login').style.display = 'flex';
+    currentPage = 'admin-login';
+    syncNavLinks('');
+  }
+
+  const ADMIN_NAV_ITEMS = [
+    { key: 'dashboard', label: 'Dashboard', icon: 'M4 5h16v4H4zm0 6h7v9H4zm9 0h7v4h-7zm0 6h7v3h-7' },
+    { key: 'events', label: 'Events', icon: 'M8 2v3M16 2v3M3 8h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z' },
+    { key: 'stores', label: 'Stores', superOnly: true, icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
+    { key: 'store-requests', label: 'Store Requests', superOnly: true, icon: 'M4 4h16v2H4zM4 9h16v2H4zM4 14h10v2H4z' },
+    { key: 'subscriptions', label: 'Subscriptions', superOnly: true, icon: 'M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM12 13a2 2 0 110-4 2 2 0 010 4z' },
+    { key: 'notifications', label: 'Notifications', superOnly: true, icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
+    { key: 'audit-log', label: 'Audit Log', superOnly: true, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+    { key: 'settings', label: 'Settings', superOnly: true, icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0' },
+  ];
+
+  function setupAdminSidebar() {
+    const badge = document.getElementById('sidebar-role-badge');
+    badge.innerHTML = isSuperAdmin
+      ? `<span class="badge b-sealed">Super Admin</span>`
+      : `<span style="font-size:10px;color:var(--text3);background:var(--bg3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px">Dragon's Lair</span> <span class="badge b-pro" style="font-size:10px">Pro</span>`;
+    document.getElementById('sidebar-initials').textContent = isSuperAdmin ? 'SA' : 'DL';
+    document.getElementById('sidebar-name').textContent = isSuperAdmin ? 'Super Admin' : "Dragon's Lair";
+    document.getElementById('sidebar-role-txt').textContent = isSuperAdmin ? 'super_admin' : 'admin';
+
+    const nav = document.getElementById('sidebar-nav');
+    const LOCKED = ADMIN_NAV_ITEMS.filter(n => n.superOnly && !isSuperAdmin);
+    const VISIBLE = ADMIN_NAV_ITEMS.filter(n => !n.superOnly || isSuperAdmin);
+    nav.innerHTML = VISIBLE.map(item => `
+    <div class="sn-item" id="sni-${item.key}" onclick="adminGoto('${item.key}')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${item.icon}"/></svg>
+      <span style="flex:1">${item.label}</span>
+      ${item.key === 'store-requests' && isSuperAdmin ? `<span class="sn-badge">2</span>` : ''}
+    </div>
+  `).join('') +
+      (LOCKED.length ? `<div class="divider"></div>` + LOCKED.map(item => `
+    <div class="sn-item locked">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${item.icon}"/></svg>
+      <span style="flex:1">${item.label}</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    </div>
+  `).join('') : '');
+  }
+
+  function adminGoto(section) {
+    currentAdminPage = section;
+    document.querySelectorAll('.sn-item').forEach(el => {
+      el.classList.remove('active');
+      if (el.id === 'sni-' + section) el.classList.add('active');
+    });
+    const titles = { dashboard: 'Dashboard', events: 'Events', stores: 'Stores', 'store-requests': 'Store Requests', subscriptions: 'Subscriptions', notifications: 'Notifications', 'audit-log': 'Audit Log', settings: 'Settings' };
+    document.getElementById('topbar-title').textContent = titles[section] || 'Admin';
+    document.getElementById('btn-new-event').style.display = (section === 'dashboard' || section === 'events') ? 'flex' : 'none';
+    renderAdminSection(section);
+  }
+
+  function renderAdminSection(section) {
+    const c = document.getElementById('admin-content');
+    if (section === 'dashboard') renderDashboard(c);
+    else if (section === 'events') renderEventList(c);
+    else if (section === 'stores') renderStoreList(c);
+    else if (section === 'store-requests') renderStoreRequests(c);
+    else if (section === 'subscriptions') renderSubscriptions(c);
+    else if (section === 'notifications') renderNotifications(c);
+    else if (section === 'audit-log') renderAuditLog(c);
+    else if (section === 'settings') renderSettings(c);
+    else c.innerHTML = `<div style="color:var(--text4);padding:24px">Coming soon.</div>`;
+  }
+
+  function renderDashboard(c) {
+    const totalReg = EVENTS.reduce((s, e) => s + e.reg, 0);
+    const totalCap = EVENTS.reduce((s, e) => s + e.cap, 0);
+    const totalUnpaid = Math.round(totalReg * 0.15);
+
+    const dailyData = [4, 7, 3, 9, 12, 6, 8, 11, 5, 14, 10, 8, 13, 18];
+    const days = ['2 Jun', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14 Jun'];
+
+    c.innerHTML = `
+    <div class="page-enter">
+      ${isSuperAdmin ? `<div style="background:var(--goldF);border:0.5px solid var(--goldB);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;color:var(--gold);font-size:12px;margin-bottom:16px;cursor:pointer" onclick="adminGoto('store-requests')">
+        <span>⚠ 2 pending store requests</span>
+        <span style="font-size:11px">Review →</span>
+      </div>`: ''}
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px">
+        <div class="stat-card"><div class="stat-label">Upcoming Events</div><div class="stat-val">${EVENTS.length}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Registered</div><div class="stat-val gold">${totalReg}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Capacity</div><div class="stat-val">${totalCap}</div></div>
+        <div class="stat-card"><div class="stat-label">Unpaid</div><div class="stat-val">${totalUnpaid}</div><div class="stat-sub">Collect at store</div></div>
+        ${isSuperAdmin ? `<div class="stat-card"><div class="stat-label">Stores</div><div class="stat-val">4</div></div>` : ''}
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div style="padding:10px 14px;border-bottom:0.5px solid var(--border);font-size:12px;font-weight:500;color:var(--text)">Registrations — last 14 days</div>
+        <div style="padding:14px 14px 8px">
+          <svg viewBox="0 0 560 140" width="100%" style="overflow:visible">
+            <defs>
+              <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5C8DEF" stop-opacity=".3"/>
+                <stop offset="100%" stop-color="#5C8DEF" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            ${Array.from({ length: 5 }, (_, i) => {
+      const y = 10 + i * 24;
+      return `<line x1="0" y1="${y}" x2="560" y2="${y}" stroke="var(--borders)" stroke-width=".5"/>`;
+    }).join('')}
+            ${(() => {
+        const max = 18;
+        const pts = dailyData.map((v, i) => {
+          const x = i * (560 / 13);
+          const y = 130 - (v / max) * 120;
+          return `${x},${y}`;
+        });
+        const area = `${pts.join(' ')} ${560},130 0,130`;
+        const line = pts.join(' ');
+        return `<polygon points="${area}" fill="url(#rg)"/><polyline points="${line}" fill="none" stroke="var(--gold)" stroke-width="1.5"/>`;
+      })()}
+            <text x="0" y="135" fill="var(--text4)" font-size="9">2 Jun</text>
+            <text x="280" y="135" fill="var(--text4)" font-size="9" text-anchor="middle">8 Jun</text>
+            <text x="560" y="135" fill="var(--text4)" font-size="9" text-anchor="end">14 Jun</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div style="padding:10px 14px;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:12px;font-weight:500;color:var(--text)">Upcoming Events</span>
+          <button onclick="adminGoto('events')" style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer;display:flex;align-items:center;gap:3px">Manage →</button>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>Event</th><th>Date</th><th>Registered</th><th></th></tr></thead>
+          <tbody>${EVENTS.slice(0, 4).map(ev => `
+            <tr>
+              <td>
+                <div style="font-size:12px;color:var(--text);font-weight:500">${ev.name}</div>
+                ${isSuperAdmin ? `<div style="font-size:10px;color:var(--text4)">${ev.store}</div>` : ''}
+              </td>
+              <td style="font-size:11px">${ev.date}</td>
+              <td>
+                <span style="color:${pct(ev) >= 90 ? 'var(--gold)' : 'var(--text2)'}">${ev.reg}</span>
+                <span style="color:var(--text4);font-size:11px"> / ${ev.cap}</span>
+                ${Math.round(ev.reg * .1) > 0 ? `<span style="margin-left:6px;font-size:10px;color:var(--orange);border:0.5px solid #F0A35C44;border-radius:4px;padding:1px 5px">${Math.round(ev.reg * .1)} unpaid</span>` : ''}
+              </td>
+              <td><button onclick="adminGoto('events')" style="font-size:10px;color:var(--text3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px;background:none;cursor:pointer">View</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      ${isSuperAdmin ? `<div class="card">
+        <div style="padding:10px 14px;border-bottom:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:12px;font-weight:500;color:var(--text)">Recent Notifications</span>
+          <button onclick="adminGoto('notifications')" style="background:none;border:none;color:var(--gold);font-size:11px;cursor:pointer">View all →</button>
+        </div>
+        ${[
+          { title: 'New store request: Cardboard Palace', body: 'Submitted by Jan Dvořák — Praha, CZ', ago: '12m ago', href: 'store-requests' },
+          { title: 'Registration spike: Aetherdrift Sealed', body: '23 registrations in the last hour', ago: '1h ago', href: 'events' },
+          { title: 'New admin account created', body: 'admin@mythicgames.cz joined Mythic Games', ago: '3h ago', href: 'stores' },
+        ].map((n, i, a) => `
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;border-bottom:${i < a.length - 1 ? '0.5px solid var(--borders)' : 'none'};cursor:pointer" onclick="adminGoto('${n.href}')">
+            <div style="flex:1;min-width:0">
+              <div style="font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${n.title}</div>
+              <div style="font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${n.body}</div>
+            </div>
+            <div style="font-size:10px;color:var(--text4);flex-shrink:0">${n.ago}</div>
+          </div>`).join('')}
+      </div>`: `<div style="border:0.5px dashed var(--border);border-radius:8px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text4);text-align:center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <div style="font-size:12px;color:var(--text3)">Advanced features require a Super Admin account</div>
+        <div style="font-size:11px">Store management, audit logs and more are available to Super Admins.</div>
+      </div>`}
+    </div>
+  `;
+  }
+
+  function renderEventList(c) {
+    c.innerHTML = `
+    <div class="page-enter">
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center">
+        <select class="input" style="width:auto;min-width:160px" ${!isSuperAdmin ? 'disabled' : ''}>
+          <option>All stores</option>
+          <option>Dragon's Lair</option><option>Mythic Games</option><option>Shield & Sword</option>
+        </select>
+        <select class="input" style="width:auto;min-width:120px"><option>All formats</option><option>Sealed</option><option>2HG</option></select>
+        <select class="input" style="width:auto;min-width:120px"><option>All types</option><option>Prerelease</option><option>Launch</option></select>
+        <button class="btn-primary" style="font-size:11px;padding:6px 14px;margin-left:auto;display:flex;align-items:center;gap:4px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New event
+        </button>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Event</th><th>Date</th><th>Format</th><th>Registered</th><th>Status</th><th></th></tr></thead>
+          <tbody>${EVENTS.map(ev => `
+            <tr>
+              <td>
+                <div style="font-size:12px;color:var(--text);font-weight:500">${ev.name}</div>
+                ${isSuperAdmin ? `<div style="font-size:10px;color:var(--text4)">${ev.store}</div>` : ''}
+              </td>
+              <td style="font-size:11px">${ev.date}<br><span style="color:var(--text4)">${ev.time}</span></td>
+              <td><span class="badge ${badgeClass(ev)}">${badgeLabel(ev)}</span></td>
+              <td>
+                <span style="color:${pct(ev) >= 90 ? 'var(--gold)' : 'var(--text2)'}">${ev.reg}</span>
+                <span style="color:var(--text4);font-size:11px"> / ${ev.cap}</span>
+                <div style="margin-top:4px;height:2px;background:var(--bg4);border-radius:2px;width:60px">
+                  <div style="height:2px;border-radius:2px;background:${pct(ev) >= 90 ? 'var(--gold)' : 'var(--green)'};width:${pct(ev)}%"></div>
+                </div>
+              </td>
+              <td><span style="font-size:10px;color:var(--green);background:#1C5C4518;border:0.5px solid #1C5C4533;border-radius:4px;padding:2px 7px">Active</span></td>
+              <td style="display:flex;gap:4px;align-items:center;padding-top:12px">
+                <button style="font-size:10px;color:var(--text3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px;background:none;cursor:pointer">View</button>
+                <button style="font-size:10px;color:var(--text3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px;background:none;cursor:pointer">Edit</button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  }
+
+  function renderStoreList(c) {
+    const stores = [
+      { name: "Dragon's Lair", city: 'Praha', country: 'CZ', tier: 'pro', admins: 2, events: 3, subs: 'active' },
+      { name: 'Mythic Games', city: 'Brno', country: 'CZ', tier: 'pro', admins: 1, events: 2, subs: 'active' },
+      { name: 'Shield & Sword', city: 'Bratislava', country: 'SK', tier: 'free', admins: 1, events: 1, subs: '—' },
+      { name: 'Cardboard Kingdom', city: 'Ostrava', country: 'CZ', tier: 'free', admins: 1, events: 1, subs: '—' },
+    ];
+    c.innerHTML = `<div class="page-enter"><div class="card"><table class="tbl">
+    <thead><tr><th>Store</th><th>Tier</th><th>Events</th><th>Admins</th><th>Subscription</th><th></th></tr></thead>
+    <tbody>${stores.map(s => `<tr>
+      <td><div style="font-size:12px;font-weight:500;color:var(--text)">${s.name}</div><div style="font-size:10px;color:var(--text4)">${s.city}, ${s.country}</div></td>
+      <td><span class="badge ${s.tier === 'pro' ? 'b-pro' : 'b-free'}">${s.tier}</span></td>
+      <td style="font-size:12px">${s.events}</td>
+      <td style="font-size:12px">${s.admins}</td>
+      <td><span style="font-size:10px;color:${s.subs === 'active' ? 'var(--green)' : 'var(--text4)'}">${s.subs}</span></td>
+      <td><button style="font-size:10px;color:var(--text3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px;background:none;cursor:pointer">Manage</button></td>
+    </tr>`).join('')}
+    </tbody></table></div></div>`;
+  }
+
+  function renderStoreRequests(c) {
+    const reqs = [
+      { name: 'Cardboard Palace', city: 'Praha', contact: 'Jan Dvořák', email: 'jan@cp.cz', wpn: true, submitted: '2h ago', status: 'pending' },
+      { name: 'FNM Corner', city: 'Plzeň', contact: 'Lucie Nováková', email: 'lucie@fnm.cz', wpn: false, submitted: '1d ago', status: 'pending' },
+      { name: 'Mana Vault', city: 'Olomouc', contact: 'Tomáš Hrdý', email: 'tomas@mv.cz', wpn: true, submitted: '3d ago', status: 'approved' },
+    ];
+    c.innerHTML = `<div class="page-enter"><div class="card"><table class="tbl">
+    <thead><tr><th>Store</th><th>Contact</th><th>WPN</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+    <tbody>${reqs.map(r => `<tr>
+      <td><div style="font-size:12px;font-weight:500;color:var(--text)">${r.name}</div><div style="font-size:10px;color:var(--text4)">${r.city}</div></td>
+      <td><div style="font-size:12px">${r.contact}</div><div style="font-size:10px;color:var(--text4)">${r.email}</div></td>
+      <td style="font-size:12px">${r.wpn ? 'Yes' : 'No'}</td>
+      <td style="font-size:11px;color:var(--text3)">${r.submitted}</td>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:${r.status === 'pending' ? '#F0A35C18' : '#1C5C4518'};color:${r.status === 'pending' ? 'var(--orange)' : 'var(--green)'};border:0.5px solid ${r.status === 'pending' ? '#F0A35C44' : '#1C5C4544'}">${r.status}</span></td>
+      <td style="display:flex;gap:4px">
+        ${r.status === 'pending' ? `<button style="font-size:10px;color:var(--green);border:0.5px solid #1C5C4544;border-radius:4px;padding:2px 7px;background:none;cursor:pointer">Approve</button>
+        <button style="font-size:10px;color:var(--red);border:0.5px solid #E5564E44;border-radius:4px;padding:2px 7px;background:none;cursor:pointer">Reject</button>`: `<button style="font-size:10px;color:var(--text3);border:0.5px solid var(--border);border-radius:4px;padding:2px 7px;background:none;cursor:pointer">View</button>`}
+      </td>
+    </tr>`).join('')}
+    </tbody></table></div></div>`;
+  }
+
+  function renderSubscriptions(c) {
+    const subs = [
+      { store: "Dragon's Lair", tier: 'pro', status: 'active', end: '14 Jul 2026', amount: '€24/mo' },
+      { store: 'Mythic Games', tier: 'pro', status: 'active', end: '28 Jun 2026', amount: '€24/mo' },
+      { store: 'Shield & Sword', tier: 'free', status: '—', end: '—', amount: '—' },
+      { store: 'Cardboard Kingdom', tier: 'free', status: '—', end: '—', amount: '—' },
+    ];
+    c.innerHTML = `<div class="page-enter"><div class="card"><table class="tbl">
+    <thead><tr><th>Store</th><th>Tier</th><th>Status</th><th>Renews</th><th>Amount</th></tr></thead>
+    <tbody>${subs.map(s => `<tr>
+      <td style="font-size:12px;font-weight:500;color:var(--text)">${s.store}</td>
+      <td><span class="badge ${s.tier === 'pro' ? 'b-pro' : 'b-free'}">${s.tier}</span></td>
+      <td><span style="font-size:11px;color:${s.status === 'active' ? 'var(--green)' : 'var(--text4)'}">${s.status}</span></td>
+      <td style="font-size:11px;color:var(--text3)">${s.end}</td>
+      <td style="font-size:12px">${s.amount}</td>
+    </tr>`).join('')}
+    </tbody></table></div></div>`;
+  }
+
+  function renderNotifications(c) {
+    const notifs = [
+      { title: 'New store request: Cardboard Palace', body: 'Submitted by Jan Dvořák — Praha, CZ', ago: '12m ago', unread: true },
+      { title: 'Registration spike: Aetherdrift Sealed', body: '23 registrations in the last hour at Dragon\'s Lair', ago: '1h ago', unread: true },
+      { title: 'New admin account created', body: 'admin@mythicgames.cz joined Mythic Games', ago: '3h ago', unread: false },
+      { title: 'Subscription expiring soon', body: 'Dragon\'s Lair Pro plan expires in 30 days', ago: '1d ago', unread: false },
+    ];
+    c.innerHTML = `<div class="page-enter"><div class="card">${notifs.map((n, i, a) => `
+    <div style="display:flex;gap:10px;padding:12px 14px;border-bottom:${i < a.length - 1 ? '0.5px solid var(--borders)' : 'none'};${n.unread ? 'background:var(--bg3)' : ''}">
+      <div style="width:6px;height:6px;border-radius:50%;background:${n.unread ? 'var(--gold)' : 'transparent'};margin-top:5px;flex-shrink:0"></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px">${n.title}</div>
+        <div style="font-size:11px;color:var(--text3)">${n.body}</div>
+      </div>
+      <div style="font-size:10px;color:var(--text4);flex-shrink:0">${n.ago}</div>
+    </div>`).join('')}
+  </div></div>`;
+  }
+
+  function renderAuditLog(c) {
+    const logs = [
+      { actor: 'super@prerelease.app', action: 'Approved store request', target: 'Mana Vault', ago: '3d ago' },
+      { actor: 'admin@dragonslair.cz', action: 'Created event', target: 'Aetherdrift Sealed (Praha)', ago: '5d ago' },
+      { actor: 'admin@mythicgames.cz', action: 'Edited event', target: 'Aetherdrift 2HG (Brno)', ago: '5d ago' },
+      { actor: 'super@prerelease.app', action: 'Invited admin', target: 'admin@shield.sk → Shield & Sword', ago: '6d ago' },
+      { actor: 'admin@dragonslair.cz', action: 'Cancelled registration', target: 'John Doe — Aetherdrift Sealed', ago: '7d ago' },
+    ];
+    c.innerHTML = `<div class="page-enter"><div class="card"><table class="tbl">
+    <thead><tr><th>Actor</th><th>Action</th><th>Target</th><th>When</th></tr></thead>
+    <tbody>${logs.map(l => `<tr>
+      <td style="font-size:11px;color:var(--text3)">${l.actor}</td>
+      <td style="font-size:12px;color:var(--text)">${l.action}</td>
+      <td style="font-size:11px;color:var(--text3)">${l.target}</td>
+      <td style="font-size:11px;color:var(--text4)">${l.ago}</td>
+    </tr>`).join('')}
+    </tbody></table></div></div>`;
+  }
+
+  function renderSettings(c) {
+    c.innerHTML = `<div class="page-enter" style="max-width:480px">
+    <div class="card" style="padding:16px;margin-bottom:14px">
+      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px">Platform settings</div>
+      <div class="field"><label class="field-label">Platform name</label><input class="input" value="MTG Prerelease"></div>
+      <div class="field"><label class="field-label">Support email</label><input class="input" value="hello@prerelease.app" type="email"></div>
+      <div class="field"><label class="field-label">Default cancellation cutoff (hours)</label><input class="input" value="24" type="number"></div>
+      <button class="btn-primary" style="font-size:12px">Save settings</button>
+    </div>
+    <div class="card" style="padding:16px">
+      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px">Email (Resend)</div>
+      <div class="field"><label class="field-label">From address</label><input class="input" value="noreply@prerelease.app"></div>
+      <div class="field"><label class="field-label">Resend API key</label><input class="input" value="re_••••••••••••" type="password"></div>
+      <button class="btn-ghost" style="font-size:12px">Test email</button>
+    </div>
+  </div>`;
+  }
+
+  showPage('landing');
+  renderEvents();
+  renderFAQ();
+</script>

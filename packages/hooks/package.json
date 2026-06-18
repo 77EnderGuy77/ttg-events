@@ -1,0 +1,25 @@
+{
+  "name": "@ttg/hooks",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.62.2",
+    "@ttg/mock-data": "*",
+    "@ttg/types": "*"
+  },
+  "devDependencies": {
+    "@types/react": "~18.3.0",
+    "react": "^19.2.6",
+    "typescript": "~6.0.2"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+"paths": {
+      "@ttg/types": ["../../packages/types/src/index.ts"],
+      "@ttg/mock-data": ["../../packages/mock-data/src/index.ts"],
+      "@ttg/auth": ["../../packages/auth/src/index.ts"],
+      "@ttg/utils": ["../../packages/utils/src/index.ts"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.d.ts", "expo-env.d.ts"]
+}

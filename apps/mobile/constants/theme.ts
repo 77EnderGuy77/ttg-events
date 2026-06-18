@@ -1,0 +1,18 @@
+export const C = {
+  bg:      '#14161c',
+  bg1:     '#181a21',
+  bg2:     '#1d2027',
+  bg3:     '#252832',
+  bg4:     '#2b2f3a',
+  border:  '#2f333d',
+  text:    '#e4e6eb',
+  text2:   '#c4c8d2',
+  text3:   '#8b919f',
+  text4:   '#5b6170',
+  gold:    '#5c8def',
+  purple:  '#8b7fe8',
+  purpleL: '#b6aef0',
+  green:   '#4cc38a',
+  red:     '#e5564e',
+  amber:   '#f0a35c',
+} as const

@@ -1,0 +1,33 @@
+{
+  "name": "@ttg/mobile",
+  "private": true,
+  "version": "0.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "build": "expo export --platform web",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
+    "@ttg/auth": "*",
+    "@ttg/mock-data": "*",
+    "@ttg/types": "*",
+    "@ttg/utils": "*",
+    "expo": "~52.0.46",
+    "expo-router": "~4.0.17",
+    "expo-status-bar": "~2.0.1",
+    "nativewind": "^4.1.23",
+    "react": "18.3.1",
+    "react-native": "0.76.9",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~18.3.12",
+    "tailwindcss": "^3.4.0",
+    "typescript": "~5.3.3"
+  }
+}

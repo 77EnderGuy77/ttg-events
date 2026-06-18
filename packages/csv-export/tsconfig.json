@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@ttg/types": ["../types/src/index.ts"],
+      "@ttg/utils": ["../utils/src/index.ts"]
+    }
+  },
+  "include": ["src"]
+}
