@@ -1,7 +1,6 @@
-import { Outlet, Link, useRouterState } from '@tanstack/react-router'
-import { useCurrentUser } from '@ttg/auth'
-import { useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
+import { Outlet, Link, useRouterState, useNavigate } from '@tanstack/react-router'
+import { useCurrentUser } from '@ttg/auth'
 
 function DashLink({ to, children }: { to: string; children: React.ReactNode }) {
   const { location } = useRouterState()

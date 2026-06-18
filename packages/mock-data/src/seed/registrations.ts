@@ -119,6 +119,9 @@ const EVT_010 = fill('evt-010', P.slice(25, 45), 'attended', '2026-04-18T10:00:0
 // evt-011 completed Yu-Gi-Oh (15 attended)
 const EVT_011 = fill('evt-011', P.slice(30, 45), 'attended', '2026-05-08T10:00:00Z')
 
+// evt-012 upcoming Dragon's Lair Tarkir Prerelease (12 registered)
+const EVT_012 = fill('evt-012', P.slice(2, 14), 'registered', '2026-06-19T10:00:00Z')
+
 // ─── Export ──────────────────────────────────────────────────────────────────
 
 export const REGISTRATIONS: Registration[] = [
@@ -134,4 +137,5 @@ export const REGISTRATIONS: Registration[] = [
   ...EVT_009,
   ...EVT_010,
   ...EVT_011,
+  ...EVT_012,
 ]

@@ -1,8 +1,8 @@
 import type { Event } from '@ttg/types'
 
-// Today: 2026-06-16
+// Today: 2026-06-19
 // evt-001  completed  Dragon's Lair Praha    MTG Sealed       Jun 14
-// evt-002  active     Dragon's Lair Praha    MTG 2HG          Jun 16  ← today
+// evt-002  active     Dragon's Lair Praha    MTG 2HG          Jun 16
 // evt-003  upcoming   Dragon's Lair Praha    MTG Sealed       Jun 28  18/28
 // evt-004  upcoming   Dragon's Lair Praha    MTG 2HG          Jun 28   6/16
 // evt-005  upcoming   Mythic Games  Brno     MTG Sealed FULL  Jun 28  24/24 + 8 waitlist
@@ -12,6 +12,7 @@ import type { Event } from '@ttg/types'
 // evt-009  upcoming   Shield&Sword  Plzeň    MTG Draft        Jul 12   8/24
 // evt-010  completed  Critical Hit  Bratislava  Pokémon Reg.  May 30
 // evt-011  completed  Card Kingdom  Ostrava  Yu-Gi-Oh Tourney Jun  7
+// evt-012  upcoming   Dragon's Lair Praha    MTG Prerelease   Jul 19  12/24
 
 export const EVENTS: Event[] = [
   {
@@ -211,5 +212,23 @@ export const EVENTS: Event[] = [
     notes: 'Advanced format. Bring your Main/Extra/Side decks.',
     companionApp: false,
     createdAt: '2026-05-10T08:00:00Z',
+  },
+  {
+    id: 'evt-012',
+    storeId: 'str-001',
+    name: 'Tarkir: Dragonstorm Prerelease — Sealed',
+    game: 'mtg',
+    format: 'sealed',
+    type: 'prerelease',
+    status: 'upcoming',
+    date: '2026-07-19',
+    time: '10:00',
+    capacity: 24,
+    waitlistCapacity: 8,
+    entryFee: 300,
+    currency: 'CZK',
+    notes: 'Prerelease sealed event for Tarkir: Dragonstorm. 6 packs + promo card. Pairings on Companion app.',
+    companionApp: true,
+    createdAt: '2026-06-19T09:00:00Z',
   },
 ]

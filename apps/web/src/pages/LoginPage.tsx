@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useAuthStore, DEMO_ACCOUNTS } from '@ttg/auth'
 import { Button, Field, FieldLabel, Input } from '@ttg/ui'
+import { Panel, SectionLabel } from '../components'
 
 export function LoginPage() {
   const [email, setEmail] = useState('')
@@ -34,7 +35,7 @@ export function LoginPage() {
         <p className="text-[13px] text-ink-3">Find and register for events near you</p>
       </div>
 
-      <div className="bg-surface-2 border border-line rounded-[10px] p-6 mb-4">
+      <Panel className="p-6 mb-4">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Field>
             <FieldLabel>Email</FieldLabel>
@@ -60,11 +61,10 @@ export function LoginPage() {
           {error && <p className="text-[12px] text-red">{error}</p>}
           <Button type="submit" className="w-full">Sign in</Button>
         </form>
-      </div>
+      </Panel>
 
-      {/* Demo accounts */}
-      <div className="bg-surface-2 border border-line rounded-[10px] p-4">
-        <p className="text-[11px] text-ink-4 font-medium uppercase tracking-wider mb-3">Demo accounts</p>
+      <Panel className="p-4">
+        <SectionLabel className="mb-3">Demo accounts</SectionLabel>
         <div className="flex flex-col gap-1.5">
           {DEMO_ACCOUNTS.map(a => (
             <button
@@ -83,7 +83,7 @@ export function LoginPage() {
           ))}
         </div>
         <p className="text-[11px] text-ink-4 mt-3">Any password works for demo accounts.</p>
-      </div>
+      </Panel>
 
       <p className="text-center text-[12px] text-ink-4 mt-5">
         New store?{' '}

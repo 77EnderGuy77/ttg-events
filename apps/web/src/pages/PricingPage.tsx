@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Button } from '@ttg/ui'
+import { Panel } from '../components'
 
 const TIERS = [
   {
@@ -14,13 +15,7 @@ const TIERS = [
       'Public event listing',
       'Email support',
     ],
-    missing: [
-      '2HG registration',
-      'Waitlist management',
-      'CSV export',
-      'Announcements',
-      'Analytics',
-    ],
+    missing: ['2HG registration', 'Waitlist management', 'CSV export', 'Announcements', 'Analytics'],
     cta: 'Start Free',
     variant: 'ghost' as const,
     highlight: false,
@@ -39,11 +34,7 @@ const TIERS = [
       'Email announcements',
       'Priority support',
     ],
-    missing: [
-      'Advanced analytics',
-      'Custom branding',
-      'API access',
-    ],
+    missing: ['Advanced analytics', 'Custom branding', 'API access'],
     cta: 'Apply — Basic',
     variant: 'ghost' as const,
     highlight: false,
@@ -82,9 +73,7 @@ export function PricingPage() {
           <div
             key={tier.name}
             className={`rounded-[12px] border p-6 flex flex-col ${
-              tier.highlight
-                ? 'bg-gold/5 border-gold/30'
-                : 'bg-surface-2 border-line'
+              tier.highlight ? 'bg-gold/5 border-gold/30' : 'bg-surface-2 border-line'
             }`}
           >
             {tier.highlight && (
@@ -121,19 +110,16 @@ export function PricingPage() {
         ))}
       </div>
 
-      <div className="bg-surface-2 border border-line rounded-[10px] p-6 text-center">
+      <Panel className="p-6 text-center">
         <h2 className="text-[16px] font-semibold text-ink mb-2">Questions?</h2>
         <p className="text-[13px] text-ink-3 mb-4">
           All plans include a 30-day free trial. No credit card required to apply.
           Contact us if you need a custom plan for large tournament organizers.
         </p>
-        <a
-          href="mailto:hello@ttgevents.com"
-          className="text-[13px] text-gold hover:underline"
-        >
+        <a href="mailto:hello@ttgevents.com" className="text-[13px] text-gold hover:underline">
           hello@ttgevents.com
         </a>
-      </div>
+      </Panel>
     </div>
   )
 }

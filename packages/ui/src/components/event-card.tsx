@@ -10,7 +10,7 @@ function EventCard({ highlighted = false, className, ...props }: EventCardProps)
   return (
     <div
       className={cn(
-        'bg-surface-2 border rounded-[8px] p-[14px_16px] cursor-pointer transition-colors',
+        'bg-surface-2 border rounded-[8px] py-3.5 px-4 cursor-pointer transition-colors',
         highlighted ? 'border-gold/40' : 'border-line hover:border-gold/40',
         className,
       )}

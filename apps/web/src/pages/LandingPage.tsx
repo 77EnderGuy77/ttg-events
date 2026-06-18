@@ -1,167 +1,140 @@
+import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { useEventsWithStore } from '@ttg/hooks'
-import { Badge, EventCard, Spinner } from '@ttg/ui'
-import { formatDate, gameLabel, formatLabel } from '@ttg/utils'
+import { useEventsWithStore, useStores } from '@ttg/hooks'
+import { Spinner } from '@ttg/ui'
+import {
+  EventGridCard,
+  FaqAccordion,
+  FilterButton,
+  EmptyState,
+} from '../components'
 
-const GAMES = [
-  { label: 'Magic: The Gathering', icon: '◆' },
-  { label: 'Pokémon', icon: '◉' },
-  { label: 'One Piece', icon: '☠' },
-  { label: 'Lorcana', icon: '✦' },
-  { label: 'Yu-Gi-Oh!', icon: '△' },
-  { label: 'Flesh and Blood', icon: '⚔' },
+const FAQ = [
+  {
+    q: 'What is a Prerelease?',
+    a: "A Prerelease is held the weekend before a new set launches. You get a sealed Prerelease pack, build a 40-card deck on the spot, and battle other players. It's casual, friendly, and the best way to experience a new set.",
+  },
+  {
+    q: 'Do I need an account to register?',
+    a: 'No — register as a guest with just your name and email. An account lets you see all your registrations in one place.',
+  },
+  {
+    q: 'Can I cancel my registration?',
+    a: 'Yes. Your confirmation email includes a cancellation link valid up to 24 hours before the event.',
+  },
+  {
+    q: 'Do I pay online or at the store?',
+    a: 'Payment is collected at the store on the day. Your spot is reserved the moment you register — no deposit required.',
+  },
 ]
 
-const FEATURES = [
-  { icon: '🗓', title: 'Browse Events', body: 'Discover sealed, draft, 2HG, prerelease, and championship events from local game stores near you.' },
-  { icon: '🎫', title: 'Register Online', body: 'Secure your seat with instant registration. Get added to the waitlist automatically when an event fills up.' },
-  { icon: '🤝', title: '2HG Support', body: 'Register solo to be matched with a partner, or invite a teammate directly to join as a team.' },
-  { icon: '📊', title: 'Live Capacity', body: 'See real-time fill percentages and waitlist counts before you decide to register.' },
-]
-
-function formatVariant(format: string): 'sealed' | '2hg' | 'prerelease' | 'launch' | 'neutral' {
-  if (format === 'sealed') return 'sealed'
-  if (format === '2hg') return '2hg'
-  if (format === 'prerelease') return 'prerelease'
-  if (format === 'launch') return 'launch'
-  return 'neutral'
-}
+const FORMATS = ['All', 'Sealed', '2HG'] as const
+type FormatFilter = (typeof FORMATS)[number]
 
 export function LandingPage() {
-  const { data: events, isLoading } = useEventsWithStore({ status: 'upcoming' })
-  const featured = events?.slice(0, 4) ?? []
+  const { data: events = [], isLoading } = useEventsWithStore({ status: 'upcoming' })
+  const { data: stores = [] } = useStores()
+
+  const [storeFilter, setStoreFilter] = useState('all')
+  const [fmtFilter, setFmtFilter] = useState<FormatFilter>('All')
+
+  const filtered = events.filter(ev => {
+    if (storeFilter !== 'all' && ev.store.slug !== storeFilter) return false
+    if (fmtFilter === 'Sealed' && ev.format !== 'sealed') return false
+    if (fmtFilter === '2HG' && ev.format !== '2hg') return false
+    return true
+  })
 
   return (
     <div className="page-enter">
       {/* Hero */}
-      <section className="bg-surface-1 border-b border-line py-16 px-5">
-        <div className="max-w-[760px] mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-gold/10 text-gold border border-gold/20 text-[11px] font-medium px-3 py-1 rounded-full mb-5">
-            <span>◆</span> Multi-game event platform
+      <section
+        className="relative border-b border-line py-16 px-5 overflow-hidden"
+        style={{ background: 'var(--bg)' }}
+      >
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 700px 350px at 50% 100%, #5C8DEF08 0%, transparent 70%)',
+          }}
+        />
+        <div className="max-w-[880px] mx-auto text-center relative">
+          <div
+            className="inline-flex items-center gap-[6px] text-gold text-[10px] uppercase tracking-[.18em] font-medium px-[10px] py-[3px] rounded-full mb-4 border"
+            style={{ background: 'var(--goldS)', borderColor: 'var(--goldB)' }}
+          >
+            <span className="w-[5px] h-[5px] rounded-full bg-gold pulse-ring" />
+            Upcoming prereleases
           </div>
-          <h1 className="text-[38px] font-bold text-ink leading-tight mb-4">
-            Find TCG Events<br />
-            <span className="text-gold">Near You</span>
+
+          <h1 className="text-[36px] font-semibold text-ink leading-[1.15] tracking-[-0.02em] mb-[10px]">
+            Find your local<br />
+            <span className="text-gold">MTG Prerelease</span>
           </h1>
-          <p className="text-[15px] text-ink-3 max-w-[480px] mx-auto mb-8">
-            Browse sealed, draft, 2HG and prerelease events at local game stores.
-            Register online, join waitlists, and track your history — all in one place.
+          <p className="text-[14px] text-ink-3 max-w-[480px] mx-auto mb-7">
+            Register for Magic: The Gathering prerelease events at stores near you.
+            Build your sealed deck and battle on day one.
           </p>
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <Link
-              to="/stores"
-              className="bg-gold text-surface font-semibold text-[14px] px-5 py-2.5 rounded-[8px] hover:bg-gold/90 transition-colors"
+
+          {/* Filters */}
+          <div className="flex items-center gap-2 justify-center flex-wrap">
+            <select
+              className="bg-surface-1 border border-line rounded-[7px] px-[10px] py-2 text-[12px] text-ink outline-none focus:border-gold transition-colors min-w-[180px]"
+              value={storeFilter}
+              onChange={e => setStoreFilter(e.target.value)}
             >
-              Browse Stores
-            </Link>
-            <Link
-              to="/apply"
-              className="bg-surface-3 text-ink border border-line text-[14px] px-5 py-2.5 rounded-[8px] hover:bg-surface-4 transition-colors"
-            >
-              List Your Store
-            </Link>
-          </div>
-        </div>
-      </section>
+              <option value="all">All stores</option>
+              {stores.map(s => (
+                <option key={s.id} value={s.slug}>
+                  {s.name} — {s.city}
+                </option>
+              ))}
+            </select>
 
-      {/* Games */}
-      <section className="border-b border-line py-8 px-5 bg-surface">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {GAMES.map(g => (
-              <div key={g.label} className="flex items-center gap-2 text-[12px] text-ink-3 bg-surface-2 border border-line rounded-[6px] px-3 py-1.5">
-                <span>{g.icon}</span>
-                <span>{g.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Upcoming Events */}
-      <section className="py-12 px-5">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-[20px] font-semibold text-ink">Upcoming Events</h2>
-            <Link to="/stores" className="text-[13px] text-gold hover:text-gold/80 transition-colors">
-              View all →
-            </Link>
-          </div>
-
-          {isLoading ? (
-            <div className="flex justify-center py-12"><Spinner /></div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {featured.map(ev => {
-                const pct = Math.min(100, Math.round((ev.capacity - 4) / ev.capacity * 100))
-                return (
-                  <Link key={ev.id} to="/events/$eventId" params={{ eventId: ev.id }}>
-                    <EventCard>
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div>
-                          <p className="text-[13px] font-medium text-ink mb-0.5">{ev.name}</p>
-                          <p className="text-[11px] text-ink-3">{ev.store.name} · {ev.store.city}</p>
-                        </div>
-                        <Badge variant={formatVariant(ev.format)}>{formatLabel(ev.format)}</Badge>
-                      </div>
-                      <div className="flex items-center justify-between text-[11px] text-ink-3">
-                        <span>{formatDate(ev.date)} · {ev.time}</span>
-                        <span className="text-ink-4">{gameLabel(ev.game)}</span>
-                      </div>
-                      <div className="mt-2.5 h-[3px] bg-surface-4 rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all"
-                          style={{ width: `${pct}%`, background: pct >= 90 ? 'var(--red)' : pct >= 70 ? 'var(--orange)' : 'var(--gold)' }}
-                        />
-                      </div>
-                    </EventCard>
-                  </Link>
-                )
-              })}
+            <div className="flex gap-1">
+              {FORMATS.map(f => (
+                <FilterButton
+                  key={f}
+                  active={fmtFilter === f}
+                  onClick={() => setFmtFilter(f)}
+                  className="rounded-[7px]"
+                >
+                  {f}
+                </FilterButton>
+              ))}
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="border-t border-line py-12 px-5 bg-surface-1">
-        <div className="max-w-[1100px] mx-auto">
-          <h2 className="text-[20px] font-semibold text-ink mb-2 text-center">Everything you need</h2>
-          <p className="text-[13px] text-ink-3 text-center mb-8">Built for players, designed for stores.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {FEATURES.map(f => (
-              <div key={f.title} className="bg-surface-2 border border-line rounded-[10px] p-5">
-                <div className="text-[24px] mb-3">{f.icon}</div>
-                <h3 className="text-[14px] font-semibold text-ink mb-1.5">{f.title}</h3>
-                <p className="text-[12px] text-ink-3 leading-relaxed">{f.body}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-line py-14 px-5 text-center">
-        <div className="max-w-[480px] mx-auto">
-          <h2 className="text-[22px] font-semibold text-ink mb-3">Run a local game store?</h2>
-          <p className="text-[13px] text-ink-3 mb-6">
-            Join the TTG Events network. Manage events, track registrations, send announcements,
-            and grow your player base — starting free.
-          </p>
-          <Link
-            to="/pricing"
-            className="inline-block bg-surface-3 border border-line text-ink text-[14px] font-medium px-5 py-2.5 rounded-[8px] hover:bg-surface-4 transition-colors mr-3"
-          >
-            View Pricing
-          </Link>
-          <Link
-            to="/apply"
-            className="inline-block bg-gold text-surface font-semibold text-[14px] px-5 py-2.5 rounded-[8px] hover:bg-gold/90 transition-colors"
-          >
-            Apply Now
-          </Link>
-        </div>
-      </section>
+      {/* Events grid */}
+      <div className="max-w-[920px] mx-auto px-6 py-6">
+        {isLoading ? (
+          <div className="flex justify-center py-12"><Spinner /></div>
+        ) : filtered.length === 0 ? (
+          <EmptyState
+            message="No upcoming events match your filter."
+            cta={
+              <Link to="/stores" className="text-[13px] text-gold hover:underline">
+                Browse all stores →
+              </Link>
+            }
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {filtered.map(ev => (
+              <EventGridCard key={ev.id} event={ev} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* FAQ */}
+      <div className="max-w-[680px] mx-auto px-6 pb-12">
+        <div className="text-[11px] text-ink-4 uppercase tracking-[.1em] mb-4">FAQ</div>
+        <FaqAccordion items={FAQ} />
+      </div>
     </div>
   )
 }

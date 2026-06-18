@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Button, Field, FieldLabel, Input } from '@ttg/ui'
+import { PageHeader, Panel, SectionLabel } from '../components'
 
 interface FormState {
   storeName: string
@@ -26,19 +27,15 @@ export function ApplyPage() {
     setForm(prev => ({ ...prev, [key]: value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   if (submitted) {
     return (
       <div className="page-enter max-w-[520px] mx-auto px-5 py-16 text-center">
         <div className="text-[48px] mb-4">🎉</div>
         <h1 className="text-[22px] font-semibold text-ink mb-2">Application submitted!</h1>
         <p className="text-[13px] text-ink-3 max-w-[360px] mx-auto">
-          Thanks, <strong className="text-ink">{form.storeName}</strong>! We'll review your application
-          and get back to you at <strong className="text-ink">{form.contactEmail}</strong> within 2–3 business days.
+          Thanks, <strong className="text-ink">{form.storeName}</strong>! We'll review your
+          application and get back to you at{' '}
+          <strong className="text-ink">{form.contactEmail}</strong> within 2–3 business days.
         </p>
       </div>
     )
@@ -46,16 +43,14 @@ export function ApplyPage() {
 
   return (
     <div className="page-enter max-w-[640px] mx-auto px-5 py-8">
-      <div className="mb-6">
-        <h1 className="text-[24px] font-semibold text-ink mb-1">Apply to list your store</h1>
-        <p className="text-[13px] text-ink-3">
-          Join the TTG Events network. We'll review your application and reach out within 2–3 business days.
-        </p>
-      </div>
+      <PageHeader
+        title="Apply to list your store"
+        subtitle="Join the TTG Events network. We'll review your application and reach out within 2–3 business days."
+      />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="bg-surface-2 border border-line rounded-[10px] p-5">
-          <p className="text-[12px] font-semibold text-ink-3 uppercase tracking-wider mb-4">Store Details</p>
+      <form onSubmit={e => { e.preventDefault(); setSubmitted(true) }} className="flex flex-col gap-4">
+        <Panel className="p-5">
+          <SectionLabel>Store Details</SectionLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field>
               <FieldLabel>Store name</FieldLabel>
@@ -102,7 +97,6 @@ export function ApplyPage() {
               />
             </Field>
           </div>
-
           <div className="mt-4 flex items-start gap-3">
             <input
               id="wpn"
@@ -115,10 +109,10 @@ export function ApplyPage() {
               We are a WPN (Wizards Play Network) member store
             </label>
           </div>
-        </div>
+        </Panel>
 
-        <div className="bg-surface-2 border border-line rounded-[10px] p-5">
-          <p className="text-[12px] font-semibold text-ink-3 uppercase tracking-wider mb-4">Contact</p>
+        <Panel className="p-5">
+          <SectionLabel>Contact</SectionLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field>
               <FieldLabel>Your name</FieldLabel>
@@ -150,7 +144,7 @@ export function ApplyPage() {
               />
             </Field>
           </div>
-        </div>
+        </Panel>
 
         <Button type="submit" className="self-start px-6">
           Submit Application
