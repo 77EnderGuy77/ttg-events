@@ -8,6 +8,6 @@ export { SUBSCRIPTIONS } from './seed/subscriptions'
 
 // Query functions
 export { getStores, getStoreById, getStoreBySlug, getStoresByCity, getStoreApplications, getStoreApplication } from './queries/stores'
-export { getEvents, getEventById, getEventsByStore, getEventsByCity, getEventWithStore, getEventsWithStore, getEventStats } from './queries/events'
+export { getEvents, getEventById, getEventsByStore, getEventsByCity, getEventWithStore, getEventsWithStore, getEventStats, updateEvent } from './queries/events'
 export { getRegistrations, getRegistrationById, getRegistrationsWithUsers, getMyRegistrations, getConfirmedCount, getWaitlistCount } from './queries/registrations'
 export { getUsers, getUserById, getUserByEmail, getPlayerCount } from './queries/users'

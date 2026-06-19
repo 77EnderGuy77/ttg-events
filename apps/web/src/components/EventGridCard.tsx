@@ -23,7 +23,7 @@ export function EventGridCard({ event: ev }: EventGridCardProps) {
             <p className="text-[13px] font-medium text-ink mb-[3px] truncate">{ev.name}</p>
             <p className="text-[11px] text-ink-4">{ev.store.name} · {ev.store.city}</p>
           </div>
-          <Badge variant={badge.variant}>{badge.label}</Badge>
+          {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
         </div>
 
         <div className="flex gap-3 text-[11px] text-ink-3 mb-[10px]">

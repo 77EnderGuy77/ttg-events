@@ -151,16 +151,16 @@ export function formatLabel(format: EventFormat): string {
 
 type BadgeVariant = 'sealed' | '2hg' | 'prerelease' | 'launch' | 'neutral'
 
-/** Derives badge variant + label from event format + type, matching mock logic. */
+/** Derives badge variant + label from event format + type.
+ *  Returns null for common formats (standard, commander, other) that don't need a badge. */
 export function getEventBadge(
   format: EventFormat,
   type: EventType,
-): { variant: BadgeVariant; label: string } {
-  if (format === '2hg')       return { variant: '2hg',   label: '2HG' }
+): { variant: BadgeVariant; label: string } | null {
+  if (format === '2hg')       return { variant: '2hg',    label: '2HG' }
   if (type === 'launch')      return { variant: 'launch', label: 'Launch' }
-  if (type === 'prerelease')  return { variant: 'sealed', label: 'Sealed' }
+  if (type === 'prerelease')  return { variant: 'sealed', label: 'Prerelease' }
+  if (format === 'sealed')    return { variant: 'sealed', label: 'Sealed' }
   if (format === 'draft')     return { variant: 'neutral', label: 'Draft' }
-  if (format === 'standard')  return { variant: 'neutral', label: 'Standard' }
-  if (format === 'commander') return { variant: 'neutral', label: 'Commander' }
-  return { variant: 'sealed', label: 'Sealed' }
+  return null
 }

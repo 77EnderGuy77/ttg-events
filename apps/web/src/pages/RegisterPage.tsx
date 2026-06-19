@@ -9,7 +9,7 @@ import { Breadcrumb, DetailField, Panel } from '../components'
 
 export function RegisterPage() {
   const { eventId } = useParams({ strict: false }) as { eventId: string }
-  const search = useSearch({ strict: false }) as { type?: string; teammateName?: string }
+  const search = useSearch({ strict: false }) as { type?: string; teammateName?: string; teammateEmail?: string; guestName?: string; guestEmail?: string }
   const { data: event, isLoading } = useEvent(eventId)
   const user = useCurrentUser()
   const [confirmed, setConfirmed] = useState(false)
@@ -25,6 +25,11 @@ export function RegisterPage() {
   const store = getStoreById(event.storeId)
   const regType = (search.type as '1v1' | '2v2-solo' | '2v2-team') ?? '1v1'
   const teammateName = search.teammateName
+  const teammateEmail = search.teammateEmail
+  const guestName = search.guestName
+  const guestEmail = search.guestEmail
+  const playerName = user?.name ?? guestName ?? '—'
+  const playerEmail = user?.email ?? guestEmail
 
   const typeLabel =
     regType === '1v1'
@@ -101,14 +106,23 @@ export function RegisterPage() {
         </div>
 
         <div className="border-t border-line pt-4">
-          <DetailField label="Player" value={user?.name ?? '—'} />
-          {user?.email && (
-            <p className="text-[12px] text-ink-3 mt-1 px-3">{user.email}</p>
+          <DetailField label="Player" value={playerName} />
+          {playerEmail && (
+            <p className="text-[12px] text-ink-3 mt-1 px-3">{playerEmail}</p>
           )}
+          {!user && <p className="text-[11px] text-ink-4 mt-1 px-3">Guest registration</p>}
         </div>
 
         <div className="border-t border-line mt-4 pt-4">
           <DetailField label="Registration type" value={typeLabel} />
+          {teammateName && (
+            <div className="mt-3">
+              <DetailField label="Teammate" value={teammateName} />
+              {teammateEmail && (
+                <p className="text-[12px] text-ink-3 mt-1 px-3">{teammateEmail}</p>
+              )}
+            </div>
+          )}
         </div>
       </Panel>
 

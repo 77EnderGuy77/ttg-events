@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { router } from 'expo-router'
 import { useAuthStore } from '@/store/auth'
 import { C } from '@/constants/theme'
 import { getEventsWithStore, getConfirmedCount } from '@ttg/mock-data'
@@ -65,7 +66,7 @@ export default function AdminEvents() {
           const reg = getConfirmedCount(ev.id)
           const fill = calcFillPct(reg, ev.capacity)
           return (
-            <View style={s.card}>
+            <TouchableOpacity style={s.card} onPress={() => router.push(`/admin/event-edit?id=${ev.id}`)} activeOpacity={0.75}>
               <View style={s.cardHeader}>
                 <View style={{ flex: 1 }}>
                   <Text style={s.cardName}>{ev.name}</Text>
@@ -85,7 +86,7 @@ export default function AdminEvents() {
                 </View>
                 <Text style={s.fillPct}>{fill}%</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           )
         }}
         ListEmptyComponent={<Text style={s.empty}>No events found.</Text>}

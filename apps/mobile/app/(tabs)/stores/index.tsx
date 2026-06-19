@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import { router } from 'expo-router'
+import { router, Stack } from 'expo-router'
 import { getStores } from '@ttg/mock-data'
 import type { Store } from '@ttg/types'
 import { C } from '@/constants/theme'
@@ -26,6 +26,7 @@ export default function StoresScreen() {
 
   return (
     <View style={s.screen}>
+      <Stack.Screen options={{ title: 'Stores' }} />
       <View style={s.filterBar}>
         <TextInput
           style={s.input}

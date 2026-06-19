@@ -15,7 +15,6 @@ function NavIcon({ d }: { d: string }) {
 
 const NAV_ITEMS = [
   { key: 'dashboard',      to: '/admin',                label: 'Dashboard',      superOnly: false, icon: 'M4 5h16v4H4zm0 6h7v9H4zm9 0h7v4h-7zm0 6h7v3h-7' },
-  { key: 'events',         to: '/admin/events',         label: 'Events',         superOnly: false, icon: 'M8 2v3M16 2v3M3 8h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z' },
   { key: 'stores',         to: '/admin/stores',         label: 'Stores',         superOnly: true,  icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
   { key: 'store-requests', to: '/admin/store-requests', label: 'Store Requests', superOnly: true,  icon: 'M4 4h16v2H4zM4 9h16v2H4zM4 14h10v2H4z' },
   { key: 'subscriptions',  to: '/admin/subscriptions',  label: 'Subscriptions',  superOnly: true,  icon: 'M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM12 13a2 2 0 110-4 2 2 0 010 4z' },
@@ -59,7 +58,7 @@ export function AdminLayout() {
   const visible = NAV_ITEMS.filter(n => !n.superOnly || isSuperAdmin)
   const locked  = NAV_ITEMS.filter(n => n.superOnly && !isSuperAdmin)
   const title   = getTitle(pathname)
-  const showNewEvent = pathname === '/admin' || pathname === '/admin/events' || pathname.startsWith('/admin/events/')
+  const showNewEvent = pathname === '/admin' || pathname.startsWith('/admin/events/')
   const initials = getInitials(user.name)
 
   function isActive(item: (typeof NAV_ITEMS)[0]) {

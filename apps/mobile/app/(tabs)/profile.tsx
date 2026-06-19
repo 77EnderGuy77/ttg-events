@@ -88,10 +88,6 @@ export default function ProfileScreen() {
 
   if (!user) return <LoginForm />
 
-  const roleLabel = user.role === 'player' ? 'Player'
-    : user.role === 'store-admin' ? 'Store Admin'
-    : 'TTG Admin'
-
   return (
     <ScrollView style={s.screen} contentContainerStyle={s.content}>
       {/* Profile card */}
@@ -100,9 +96,6 @@ export default function ProfileScreen() {
         <View style={{ marginLeft: 14 }}>
           <Text style={s.userName}>{user.name}</Text>
           <Text style={s.userEmail}>{user.email}</Text>
-          <View style={s.roleBadge}>
-            <Text style={s.roleBadgeText}>{roleLabel}</Text>
-          </View>
         </View>
       </View>
 
@@ -112,7 +105,6 @@ export default function ProfileScreen() {
         {[
           { label: 'Name', value: user.name },
           { label: 'Email', value: user.email },
-          { label: 'Role', value: roleLabel },
           { label: 'Member since', value: formatIsoDate(user.createdAt) },
         ].map(row => (
           <View key={row.label} style={s.infoRow}>
@@ -185,9 +177,6 @@ const s = StyleSheet.create({
   avatarText:    { color: C.text3, fontWeight: '600' },
   userName:      { fontSize: 17, fontWeight: '700', color: C.text, marginBottom: 2 },
   userEmail:     { fontSize: 12, color: C.text3, marginBottom: 6 },
-  roleBadge:     { alignSelf: 'flex-start', backgroundColor: `${C.gold}1a`, borderRadius: 4, borderWidth: 1, borderColor: `${C.gold}33`, paddingHorizontal: 7, paddingVertical: 2 },
-  roleBadgeText: { fontSize: 10, color: C.gold, fontWeight: '600' },
-
   section:       { backgroundColor: C.bg2, borderRadius: 10, borderWidth: 1, borderColor: C.border, padding: 14 },
   sectionLabel:  { fontSize: 10, fontWeight: '600', color: C.text4, letterSpacing: 0.8, marginBottom: 10 },
 

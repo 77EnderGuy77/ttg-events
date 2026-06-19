@@ -1,21 +1,26 @@
 import { Tabs } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
+import { Text } from 'react-native'
 import { C } from '@/constants/theme'
 
-type IoniconName = React.ComponentProps<typeof Ionicons>['name']
-
-function icon(focused: boolean, name: IoniconName, nameOff: IoniconName) {
-  return <Ionicons name={focused ? name : nameOff} size={22} color={focused ? C.gold : C.text4} />
+function TabIcon({ emoji }: { emoji: string }) {
+  return <Text style={{ fontSize: 20, lineHeight: 24 }}>{emoji}</Text>
 }
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarStyle: { backgroundColor: C.bg1, borderTopColor: C.border, height: 60, paddingBottom: 8 },
+        tabBarStyle: {
+          backgroundColor: C.bg1,
+          borderTopColor: C.border,
+          borderTopWidth: 1,
+          height: 58,
+          paddingTop: 6,
+          paddingBottom: 10,
+        },
         tabBarActiveTintColor: C.gold,
         tabBarInactiveTintColor: C.text4,
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '500' },
+        tabBarLabelStyle: { fontSize: 10, fontWeight: '500', marginTop: 0 },
         headerStyle: { backgroundColor: C.bg1 },
         headerTintColor: C.text,
         headerTitleStyle: { fontWeight: '600', fontSize: 16 },
@@ -27,38 +32,47 @@ export default function TabsLayout() {
         options={{
           title: 'Discover',
           headerTitle: '◆ TTG Events',
-          tabBarIcon: ({ focused }) => icon(focused, 'calendar', 'calendar-outline'),
+          tabBarIcon: () => <TabIcon emoji="📅" />,
         }}
       />
       <Tabs.Screen
         name="stores"
         options={{
           title: 'Stores',
-          tabBarIcon: ({ focused }) => icon(focused, 'storefront', 'storefront-outline'),
+          tabBarIcon: () => <TabIcon emoji="🏪" />,
+        }}
+      />
+      <Tabs.Screen
+        name="stores/index"
+        options={{
+          title: 'Stores',
+          tabBarIcon: () => <TabIcon emoji="🏪" />,
         }}
       />
       <Tabs.Screen
         name="my-events"
         options={{
           title: 'My Events',
-          tabBarIcon: ({ focused }) => icon(focused, 'list', 'list-outline'),
+          tabBarIcon: () => <TabIcon emoji="☰" />,
         }}
       />
       <Tabs.Screen
         name="notifications"
         options={{
           title: 'Updates',
-          tabBarIcon: ({ focused }) => icon(focused, 'notifications', 'notifications-outline'),
+          tabBarIcon: () => <TabIcon emoji="🔔" />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ focused }) => icon(focused, 'person', 'person-outline'),
+          tabBarIcon: () => <TabIcon emoji="👤" />,
         }}
       />
+      <Tabs.Screen name="stores/[slug]" options={{ href: null }} />
       <Tabs.Screen name="dashboard" options={{ href: null }} />
+      <Tabs.Screen name="dashboard/index" options={{ href: null }} />
     </Tabs>
   )
 }

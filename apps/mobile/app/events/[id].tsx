@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react'
 import {
   View, Text, ScrollView, TouchableOpacity,
-  StyleSheet, Alert,
+  StyleSheet, Alert, TextInput,
 } from 'react-native'
 import { useLocalSearchParams, router } from 'expo-router'
 import { getEventWithStore, getEventStats, getMyRegistrations } from '@ttg/mock-data'
-import { formatDate, gameLabel, formatLabel, calcFillPct } from '@ttg/utils'
+import { formatDate, gameLabel, getEventBadge, calcFillPct } from '@ttg/utils'
 import { useAuthStore } from '@/store/auth'
 import { C } from '@/constants/theme'
 import type { RegistrationType } from '@ttg/types'
@@ -34,6 +34,9 @@ export default function EventDetailScreen() {
   const user = useAuthStore(s => s.user)
   const [regType, setRegType] = useState<RegistrationType>('1v1')
   const [teammateName, setTeammateName] = useState('')
+  const [teammateEmail, setTeammateEmail] = useState('')
+  const [guestName, setGuestName] = useState('')
+  const [guestEmail, setGuestEmail] = useState('')
   const [registered, setRegistered] = useState(false)
 
   const { event, stats, existingReg } = useMemo(() => {
@@ -75,15 +78,12 @@ export default function EventDetailScreen() {
   ]
 
   function handleRegister() {
-    if (!user) {
-      Alert.alert('Sign in required', 'Go to Profile tab to sign in.', [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Go to Profile', onPress: () => router.push('/(tabs)/profile') },
-      ])
+    if (!user && (!guestName.trim() || !guestEmail.trim())) {
+      Alert.alert('Details required', 'Please enter your name and email to register.')
       return
     }
-    if (regType === '2v2-team' && !teammateName.trim()) {
-      Alert.alert('Teammate required', 'Please enter your teammate\'s name.')
+    if (regType === '2v2-team' && (!teammateName.trim() || !teammateEmail.trim())) {
+      Alert.alert('Teammate required', 'Enter your teammate\'s name and email.')
       return
     }
     setRegistered(true)
@@ -112,7 +112,7 @@ export default function EventDetailScreen() {
       <View style={s.header}>
         <View style={s.badges}>
           <Badge label={gameLabel(event.game)} color={C.gold} />
-          <Badge label={formatLabel(event.format)} color={C.purple} />
+          {(() => { const b = getEventBadge(event.format, event.type); return b ? <Badge label={b.label} color={C.purple} /> : null })()}
           {event.status === 'active' && <Badge label="LIVE" color={C.green} />}
         </View>
         <Text style={s.title}>{event.name}</Text>
@@ -184,7 +184,30 @@ export default function EventDetailScreen() {
               </View>
             )}
 
-            {regOptions.map(opt => (
+            {!user && (
+              <>
+                <Text style={[s.cardLabel, { marginTop: 4, marginBottom: 6 }]}>YOUR DETAILS</Text>
+                <TextInput
+                  style={s.guestInput}
+                  placeholder="Full name"
+                  placeholderTextColor={C.text4}
+                  value={guestName}
+                  onChangeText={setGuestName}
+                  autoCapitalize="words"
+                />
+                <TextInput
+                  style={[s.guestInput, { marginBottom: 10 }]}
+                  placeholder="your@email.com"
+                  placeholderTextColor={C.text4}
+                  value={guestEmail}
+                  onChangeText={setGuestEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+              </>
+            )}
+
+            {regOptions.length > 1 && regOptions.map(opt => (
               <TouchableOpacity
                 key={opt.type}
                 style={[s.regOption, regType === opt.type && s.regOptionActive]}
@@ -198,15 +221,43 @@ export default function EventDetailScreen() {
               </TouchableOpacity>
             ))}
 
+            {regType === '2v2-team' && (
+              <View style={s.teammateBox}>
+                <Text style={s.teammateBoxLabel}>TEAMMATE</Text>
+                <TextInput
+                  style={s.guestInput}
+                  placeholder="Full name"
+                  placeholderTextColor={C.text4}
+                  value={teammateName}
+                  onChangeText={setTeammateName}
+                  autoCapitalize="words"
+                />
+                <TextInput
+                  style={s.guestInput}
+                  placeholder="teammate@email.com"
+                  placeholderTextColor={C.text4}
+                  value={teammateEmail}
+                  onChangeText={setTeammateEmail}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                />
+              </View>
+            )}
+
             <TouchableOpacity
               style={s.registerBtn}
               onPress={handleRegister}
               activeOpacity={0.85}
             >
               <Text style={s.registerBtnText}>
-                {full ? 'Join Waitlist' : 'Register'} {user ? '' : '(Sign in first)'}
+                {full ? 'Join Waitlist' : 'Register'}
               </Text>
             </TouchableOpacity>
+            {!user && (
+              <Text style={s.guestNote}>
+                Or sign in via Profile tab to track all your registrations
+              </Text>
+            )}
           </>
         )}
       </View>
@@ -275,4 +326,10 @@ const s = StyleSheet.create({
   successBtnText:      { fontSize: 14, fontWeight: '700', color: C.bg },
   successBtnGhost:     { padding: 10 },
   successBtnGhostText: { fontSize: 13, color: C.text3 },
+
+  guestInput:          { backgroundColor: C.bg3, borderWidth: 1, borderColor: C.border, borderRadius: 7, padding: 10, fontSize: 13, color: C.text, marginBottom: 6 },
+  guestNote:           { fontSize: 11, color: C.text4, textAlign: 'center', marginTop: 8, lineHeight: 16 },
+
+  teammateBox:         { backgroundColor: C.bg3, borderRadius: 8, borderWidth: 1, borderColor: C.border, padding: 12, marginBottom: 6, gap: 0 },
+  teammateBoxLabel:    { fontSize: 10, fontWeight: '600', color: C.text4, letterSpacing: 0.8, marginBottom: 8 },
 })

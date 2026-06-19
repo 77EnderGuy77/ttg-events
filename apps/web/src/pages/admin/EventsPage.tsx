@@ -102,7 +102,7 @@ export function EventsPage() {
                       <div className="text-[10px] text-ink-4">{ev.time}</div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={badge.variant}>{badge.label}</Badge>
+                      {badge && <Badge variant={badge.variant}>{badge.label}</Badge>}
                     </TableCell>
                     <TableCell>
                       <span style={{ color: fill >= 90 ? 'var(--gold)' : 'var(--text2)' }}>{reg}</span>

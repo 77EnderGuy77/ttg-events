@@ -1,5 +1,12 @@
 import type { Event, EventFilters, EventStats, EventWithStore } from '@ttg/types'
 import { EVENTS } from '../seed/events'
+
+export function updateEvent(id: string, patch: Partial<Omit<Event, 'id' | 'storeId' | 'createdAt'>>): boolean {
+  const idx = EVENTS.findIndex(e => e.id === id)
+  if (idx === -1) return false
+  Object.assign(EVENTS[idx], patch)
+  return true
+}
 import { REGISTRATIONS } from '../seed/registrations'
 import { getStoreById } from './stores'
 

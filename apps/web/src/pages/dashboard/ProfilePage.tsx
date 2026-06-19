@@ -6,15 +6,9 @@ import { DetailField, PageHeader, Panel, SectionLabel } from '../../components'
 export function ProfilePage() {
   const user = useCurrentUser()!
 
-  const roleLabel =
-    user.role === 'player' ? 'Player'
-    : user.role === 'store-admin' ? 'Store Admin'
-    : 'TTG Admin'
-
   const profileFields = [
     { label: 'Name', value: user.name },
     { label: 'Email', value: user.email },
-    { label: 'Role', value: roleLabel },
     { label: 'Member since', value: formatIsoDate(user.createdAt) },
   ]
 

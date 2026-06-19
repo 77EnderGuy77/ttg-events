@@ -28,6 +28,7 @@ export default function AdminLayout() {
       <Stack.Screen name="events" options={{ title: 'Events' }} />
       <Stack.Screen name="stores" options={{ title: 'Stores' }} />
       <Stack.Screen name="store-requests" options={{ title: 'Store Requests' }} />
+      <Stack.Screen name="event-edit" options={{ title: 'Edit Event' }} />
     </Stack>
   )
 }

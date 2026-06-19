@@ -2,7 +2,7 @@ import { useAdminStoreId, useCurrentUser } from '@ttg/auth'
 import { useEventsWithStore, useStores, useStoreApplications } from '@ttg/hooks'
 import { getConfirmedCount } from '@ttg/mock-data'
 import { StatCard, Badge } from '@ttg/ui'
-import { formatDate, calcFillPct, getEventBadge } from '@ttg/utils'
+import { formatDate, calcFillPct } from '@ttg/utils'
 import { useNavigate } from '@tanstack/react-router'
 
 const DAILY = [4, 7, 3, 9, 12, 6, 8, 11, 5, 14, 10, 8, 13, 18]
