@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView, StyleSheet } from 'react-native'
+import { router } from 'expo-router'
 import { useAuthStore, ACCOUNTS } from '@/store/auth'
 import { getInitials, formatIsoDate } from '@ttg/utils'
 import { C } from '@/constants/theme'
@@ -124,6 +125,33 @@ export default function ProfileScreen() {
       {/* Demo switcher */}
       <DemoCard />
 
+      {/* Role-gated panel links */}
+      {(user.role === 'store-admin' || user.role === 'ttg-admin') && (
+        <View style={s.section}>
+          <Text style={s.sectionLabel}>PANEL ACCESS</Text>
+          <TouchableOpacity
+            style={s.panelRow}
+            onPress={() => router.push('/admin' as never)}
+            activeOpacity={0.75}
+          >
+            <Text style={s.panelIcon}>⚙️</Text>
+            <Text style={s.panelLabel}>Admin Panel</Text>
+            <Text style={s.panelArrow}>›</Text>
+          </TouchableOpacity>
+          {user.role === 'ttg-admin' && (
+            <TouchableOpacity
+              style={[s.panelRow, { borderBottomWidth: 0 }]}
+              onPress={() => router.push('/internal' as never)}
+              activeOpacity={0.75}
+            >
+              <Text style={s.panelIcon}>◆</Text>
+              <Text style={[s.panelLabel, { color: C.purple }]}>Internal Dashboard</Text>
+              <Text style={s.panelArrow}>›</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
+
       {/* Sign out */}
       <TouchableOpacity style={s.signOutBtn} onPress={logout} activeOpacity={0.8}>
         <Text style={s.signOutText}>Sign Out</Text>
@@ -180,4 +208,9 @@ const s = StyleSheet.create({
 
   demoNote:      { padding: 16, alignItems: 'center' },
   demoNoteText:  { fontSize: 11, color: C.text4, textAlign: 'center', lineHeight: 16 },
+
+  panelRow:      { flexDirection: 'row', alignItems: 'center', paddingVertical: 11, borderBottomWidth: 1, borderBottomColor: C.border },
+  panelIcon:     { fontSize: 16, marginRight: 10, width: 22 },
+  panelLabel:    { flex: 1, fontSize: 14, color: C.text, fontWeight: '500' },
+  panelArrow:    { fontSize: 18, color: C.text4 },
 })

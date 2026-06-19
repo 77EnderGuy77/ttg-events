@@ -18,6 +18,7 @@
     "@ttg/mock-data": "*",
     "@ttg/types": "*",
     "@ttg/ui": "*",
+    "@ttg/csv-export": "*",
     "@ttg/utils": "*",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
