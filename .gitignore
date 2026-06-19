@@ -33,3 +33,5 @@ web-build/
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

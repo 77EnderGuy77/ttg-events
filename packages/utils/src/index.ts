@@ -121,7 +121,7 @@ export function registrationTypeLabel(type: RegistrationType, teammateName?: str
 
 // ─── Game labels ─────────────────────────────────────────────────────────────
 
-import type { GameType, EventFormat } from '@ttg/types'
+import type { GameType, EventFormat, EventType } from '@ttg/types'
 
 export function gameLabel(game: GameType): string {
   const map: Record<GameType, string> = {
@@ -147,4 +147,20 @@ export function formatLabel(format: EventFormat): string {
     other:      'Other',
   }
   return map[format]
+}
+
+type BadgeVariant = 'sealed' | '2hg' | 'prerelease' | 'launch' | 'neutral'
+
+/** Derives badge variant + label from event format + type, matching mock logic. */
+export function getEventBadge(
+  format: EventFormat,
+  type: EventType,
+): { variant: BadgeVariant; label: string } {
+  if (format === '2hg')       return { variant: '2hg',   label: '2HG' }
+  if (type === 'launch')      return { variant: 'launch', label: 'Launch' }
+  if (type === 'prerelease')  return { variant: 'sealed', label: 'Sealed' }
+  if (format === 'draft')     return { variant: 'neutral', label: 'Draft' }
+  if (format === 'standard')  return { variant: 'neutral', label: 'Standard' }
+  if (format === 'commander') return { variant: 'neutral', label: 'Commander' }
+  return { variant: 'sealed', label: 'Sealed' }
 }

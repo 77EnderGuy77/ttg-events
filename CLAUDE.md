@@ -68,6 +68,10 @@ You must always start the answer with my name which is Andrew
 
 You must ask me after each promt to clerify any missed stuff
 
+## 7. Follow Principles of Software Development
+
+Follow SOLID, DRY and KISS Principles. Also follow the stack principles 
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
